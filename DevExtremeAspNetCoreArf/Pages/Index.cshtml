@@ -213,7 +213,7 @@
                             @Html.LabelFor(m => m.City)                                
                         </div>
                         <div class="dx-field-value" style="width: 80%;">
-                            @Html.DevExtreme().TextBoxFor(m => m.City)
+                            @(Html.DevExtreme().TextBoxFor(m => m.City)
                                 .Placeholder("City")
                             )
                         </div>

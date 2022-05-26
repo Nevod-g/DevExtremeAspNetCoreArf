@@ -3,8 +3,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>CUSTOMER APPLICATION REQUEST FORM</h2>
+<h2 style="text-align: center;">CUSTOMER APPLICATION REQUEST FORM</h2>
+<center>
 <i>Please fill this form as completely as possible and send with samples. Filling this form will help speed up your processing request.</i>
+</center>
 <p />
 
 @model DevExtremeAspNetCoreArf.ViewModels.EditorsViewModel
@@ -14,9 +16,227 @@
     using(Html.DevExtreme().ValidationGroup()) {
 
         @Html.AntiForgeryToken()
+        
+        @*<link rel="stylesheet" href="styles.css" type="text/css"/>*@
+        <style>
+            #summary {
+                padding-left: 10px;
+                margin-top: 20px;
+                margin-bottom: 10px;           
+            }
+
+            #button {
+                display: block;
+                width: 100%;
+                text-align: center;
+                margin-left: auto;
+            }
+
+            .dx-fieldset:first-child > h4:first-child {
+                margin-top: 0;
+            }
+
+            #field-container > .dx-field > .dx-field-label {
+                width: 20%;
+            }
+            #field-container > .dx-field > .dx-field-value {
+                width: 80%;
+            }
+        
+            .flex-container {
+              width: 100%;  
+              display: flex;
+              flex-flow: row nowrap;
+            }
+
+            .panel {
+                padding: 15px;
+                background-color: rgba(185, 181, 181, 0.15);
+                margin-top: -15px;
+                margin-bottom: 20px;
+                border-radius: 0 15px 15px 15px;
+            }
+        </style>
+ 
+        <div class="dx-fieldset" id="field-container">
+
+            <div class="dx-fieldset-header">Project Type</div>
+            <div class="panel">
+            <div class="flex-container" style="margin-left: 10%; width: 90%;">
+                <div class="dx-field" style="flex-grow: 17;">
+                    <div class="dx-field">                        
+                        <div class="dx-field-lable" style="width: 100%; text-align: left; margin-top: 6px;">
+                            @(Html.DevExtreme().CheckBoxFor(m => m.ClassifiedOrControlled)
+                                .ID("ClassifiedOrControlled")
+                                .Text("Classified/Controlled")
+                                .Value(null)
+                                )
+                        </div>
+                    </div>
+                </div>
+                <div style="flex-grow: 83;">
+                    <div class="dx-field">
+                        <div class="dx-field-label" style="width: 70%; text-align: right;">
+                            Enter ECCN or USML number for parts if known:
+                        </div>
+                        <div class="dx-field-value" style="width: 30%;">
+                            @(Html.DevExtreme().TextBoxFor(m => m.PartsNumber)
+                                .Placeholder("ECCN or USML")
+                            )
+                        </div>
+                    </div>
+                </div>
+            </div>      
+             
+            <div class="flex-container" style="margin-left: 10%; width: 90%;">
+                <div class="dx-field" style="flex-grow: 3;">
+                    <div class="dx-field-lable" style="width: 100%; text-align: left; margin-top: 6px;">
+                        @(Html.DevExtreme().CheckBoxFor(m => m.ITAR)
+                            .ID("ITAR")
+                            .Text("ITAR")
+                            .Value(null)
+                            .Hint("IPG Sales to Contact IPG Trade compliance officer (1149) first. Or Ext 1122 before sending parts or information to lab.")
+                            )
+                    </div>
+                    
+                    @*<div class="dx-field-label" style="width: 90%;">
+                        ITAR
+                    </div>
+                    <div class="dx-field-value" style="width: 10%; text-align: left;">
+                        @(Html.DevExtreme().CheckBoxFor(m => m.ITAR)
+                            .ID("ITAR")
+                            .Text("")
+                            .Value(null)
+                            .Hint("IPG Sales to Contact IPG Trade compliance officer (1149) first. Or Ext 1122 before sending parts or information to lab.")
+                        )
+                    </div>*@
+                </div>
+                <div style="flex-grow: 7;">
+                    <div class="dx-field-label" style="width: 100%; text-align: right; font-size:80%;">
+                        <i>(IPG Sales to Contact IPG Trade compliance officer (1149) first. Or Ext 1122 before sending parts or information to lab.)</i>
+                    </div>                    
+                </div>
+            </div>
+            </div>
+        
+            <div class="dx-fieldset-header">Sample Type</div>
+            <div class="panel">
+            <div class="flex-container" style="margin-left: 10%; width: 90%;">
+                <div class="dx-field" style="flex-grow: 5;">
+                    @(Html.DevExtreme().CheckBoxFor(m => m.ArePartsTest)
+                        .ID("ArePartsTest")
+                        .Text("Are the parts test samples/coupons")
+                        .Value(null)
+                        .Hint("")
+                    )
+                </div>
+                <div class="dx-field" style="flex-grow: 5;">
+                    @(Html.DevExtreme().CheckBoxFor(m => m.UsedInManufacturing)
+                        .ID("UsedInManufacturing")
+                        .Text("Is this a part for use in manufacturing")
+                        .Value(null)
+                        .Hint("If yes, provided the USML or ECCN number above.")
+                    )
+                </div>
+            </div>
+            </div>
+        </div>            
+
+        <div class="dx-fieldset" id="field-container">
+            <div class="dx-fieldset-header" style="text-align: left;">Contacts</div>
+            <div class="panel">
+
+            <div class="flex-container" style="text-align: right;">
+                <div class="dx-field" style="flex-grow: 5; margin-left: 2px;">
+                    <div class="dx-field">
+                        <div class="dx-field-label" style="width: 20%;">
+                            Name
+                        </div>
+                        <div class="dx-field-value" style="width: 80%;">
+                            @(Html.DevExtreme().TextBoxFor(m => m.ContactName)
+                                .Placeholder("Contact Name")
+                            )
+                        </div>
+                    </div>
+                </div>
+                <div class="dx-field" style="flex-grow: 5;">
+                    <div class="dx-field">
+                        <div class="dx-field-label" style="width: 24%;">
+                            @Html.LabelFor(m => m.Phone)#
+                        </div>
+                        <div class="dx-field-value" style="width: 76%;">
+                            @(Html.DevExtreme().TextBoxFor(m => m.Phone)
+                                .Mask("+0 (X00) 000-0000")
+                                .MaskRules(new { X = new JS("/[02-9]/") })
+                                .MaskInvalidMessage("The phone must have a correct phone format")
+                            )
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dx-field" style="text-align: right; margin-left: 0%; width: 100%;">
+                <div class="dx-field-label" style="width: 10%;">Company</div>
+                <div class="dx-field-value" style="width: 90%;">
+                    @(Html.DevExtreme().TextBoxFor(m => m.CompanyName)
+                        .Placeholder("Company Name")
+                    )
+                </div>
+            </div>
+            @*<div class="dx-field">
+                <div class="dx-field-label">
+                    @Html.LabelFor(m => m.Date, "Date of birth")
+                </div>
+                <div class="dx-field-value">
+                    @(Html.DevExtreme().DateBoxFor(m => m.Date)
+                        .InvalidDateMessage("The date must have the following format: MM/dd/yyyy")
+                    )
+                </div>
+            </div>*@
+
+            <div class="flex-container" style="text-align: right;">
+                <div class="dx-field" style="flex-grow: 5; margin-left: -5px;">
+                    <div class="dx-field">
+                        <div class="dx-field-label" style="width: 20%;">
+                            @Html.LabelFor(m => m.Country)
+                        </div>
+                        <div class="dx-field-value" style="width: 80%;">
+                            @(Html.DevExtreme().SelectBoxFor(m => m.Country)
+                                .DataSource(d => d.Mvc().Controller("GeoNames").LoadAction("Countries").Key("this"))
+                            )
+                        </div>
+                    </div>
+                </div>
+                <div class="dx-field" style="flex-grow: 5;">
+                    <div class="dx-field">
+                        <div class="dx-field-label" style="width: 20%;">
+                            @Html.LabelFor(m => m.City)                                
+                        </div>
+                        <div class="dx-field-value" style="width: 80%;">
+                            @Html.DevExtreme().TextBoxFor(m => m.City)
+                                .Placeholder("City")
+                            )
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            
+            
+            <div class="dx-field">
+                <div class="dx-field-label">
+                    @Html.LabelFor(m => m.Address)
+                </div>
+                <div class="dx-field-value">
+                    @Html.DevExtreme().TextBoxFor(m => m.Address)
+                </div>
+            </div>
+            
+            </div>
+        </div>
 
         <div class="dx-fieldset">
-            <div class="dx-fieldset-header">Project Type</div>
             <div class="dx-field">
                 <div class="dx-field-label">
                     @Html.LabelFor(m => m.Email)
@@ -47,73 +267,6 @@
             </div>
         </div>
 
-        <div class="dx-fieldset">
-            <div class="dx-fieldset-header">Personal Data</div>
-            <div class="dx-field">
-                <div class="dx-field-label">
-                    @Html.LabelFor(m => m.Name)
-                </div>
-                <div class="dx-field-value">
-                    @Html.DevExtreme().TextBoxFor(m => m.Name)
-                </div>
-            </div>
-            <div class="dx-field">
-                <div class="dx-field-label">
-                    @Html.LabelFor(m => m.Date, "Date of birth")
-                </div>
-                <div class="dx-field-value">
-                    @(Html.DevExtreme().DateBoxFor(m => m.Date)
-                        .InvalidDateMessage("The date must have the following format: MM/dd/yyyy")
-                    )
-                </div>
-            </div>
-        </div>
-        <div class="dx-fieldset">
-            <div class="dx-fieldset-header">Billing address</div>
-            <div class="dx-field">
-                <div class="dx-field-label">
-                    @Html.LabelFor(m => m.Country)
-                </div>
-                <div class="dx-field-value">
-                    @(Html.DevExtreme().SelectBoxFor(m => m.Country)
-                        .DataSource(d => d.Mvc().Controller("GeoNames").LoadAction("Countries").Key("this"))
-                    )
-                </div>
-            </div>
-            <div class="dx-field">
-                <div class="dx-field-label">
-                    @Html.LabelFor(m => m.City)
-                </div>
-                <div class="dx-field-value">
-                    @Html.DevExtreme().TextBoxFor(m => m.City)
-                </div>
-            </div>
-            <div class="dx-field">
-                <div class="dx-field-label">
-                    @Html.LabelFor(m => m.Address)
-                </div>
-                <div class="dx-field-value">
-                    @Html.DevExtreme().TextBoxFor(m => m.Address)
-                </div>
-            </div>
-            <div class="dx-field">
-                <div class="dx-field-label">
-                    @Html.LabelFor(m => m.Phone) <i>(optional)</i>
-                </div>
-                <div class="dx-field-value">
-                    @(Html.DevExtreme().TextBoxFor(m => m.Phone)
-                        .Mask("+1 (X00) 000-0000")
-                        .MaskRules(new { X = new JS("/[02-9]/") })
-                        .MaskInvalidMessage("The phone must have a correct USA phone format")
-                    )
-                </div>
-            </div>
-            @*@(Html.DevExtreme().CheckBoxFor(m => m.Accepted)
-                .ID("check")
-                .Text("I agree to the Terms and Conditions")
-            )*@
-        </div>
-
         <div class="dx-fieldset" display="block">
             @(Html.DevExtreme().ValidationSummary()
                 .ID("summary")
@@ -121,11 +274,12 @@
 
             @(Html.DevExtreme().Button()
                 .ID("button")
-                .Text("Submit")
+                .Text("SUBMIT")
                 .Type(ButtonType.Success)
                 .UseSubmitBehavior(true)
-                .Display 
             )
         </div>
+
+
     }
 }

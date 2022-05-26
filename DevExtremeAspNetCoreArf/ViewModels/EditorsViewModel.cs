@@ -9,6 +9,21 @@ namespace DevExtremeAspNetCoreArf.ViewModels
 {
     public class EditorsViewModel
     {
+        public bool ClassifiedOrControlled { get; set; }
+        public string PartsNumber { get; set; }
+        public bool ITAR { get; set; }
+        public bool ArePartsTest { get; set; }
+        public bool UsedInManufacturing { get; set; }
+
+        [RegularExpression(@"^[^0-9]+$", ErrorMessage = "Do not use digits in the Contact Name.")]
+        [StringLength(int.MaxValue, MinimumLength = 2, ErrorMessage = "Name must have at least 2 symbols")]
+        public string ContactName { get; set; }
+
+        [RegularExpression(@"^[^0-9]+$", ErrorMessage = "Do not use digits in the Company Name.")]
+        [StringLength(int.MaxValue, MinimumLength = 2, ErrorMessage = "Name must have at least 2 symbols")]
+        public string CompanyName { get; set; }
+
+
         [Required(ErrorMessage = "Email is required")]
         [RegularExpression(@"^[\d\w._-]+@[\d\w._-]+\.[\w]+$", ErrorMessage = "Email is invalid")]
         [Remote("CheckEmailAddress", "RemoteValidation", ErrorMessage = "Email is already registered", HttpMethod = "POST")]

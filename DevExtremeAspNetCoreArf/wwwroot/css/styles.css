@@ -2,8 +2,31 @@
     padding-left: 10px;
     margin-top: 20px;
     margin-bottom: 10px;
+    /*min-height: 560px;
+    max-width: 60px;
+    margin: 0 auto;*/
 }
 
 #button {
     display: block;
+}
+
+.dx-fieldset:first-child > h4:first-child {
+    margin-top: 0;
+}
+
+#notes-container > .dx-field > .dx-field-label {
+    width: 20%;
+}
+
+#notes-container > .dx-field > .dx-field-value {
+    width: 80%;
+}
+
+#field-container > .dx-field > .dx-field-label {
+    width: 20%;
+}
+
+#field-container > .dx-field > .dx-field-value {
+    width: 80%;
 }

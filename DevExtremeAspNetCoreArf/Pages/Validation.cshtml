@@ -1,11 +1,9 @@
-@page
+﻿@page
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Validation";
 }
 
-<h2>CUSTOMER APPLICATION REQUEST FORM</h2>
-<i>Please fill this form as completely as possible and send with samples. Filling this form will help speed up your processing request.</i>
-<p />
+<h2>Test</h2>
 
 @model DevExtremeAspNetCoreArf.ViewModels.EditorsViewModel
 
@@ -16,7 +14,8 @@
         @Html.AntiForgeryToken()
 
         <div class="dx-fieldset">
-            <div class="dx-fieldset-header">Project Type</div>
+            <div class="dx-fieldset-header">Credentials</div>
+
             <div class="dx-field">
                 <div class="dx-field-label">
                     @Html.LabelFor(m => m.Email)
@@ -108,23 +107,22 @@
                     )
                 </div>
             </div>
-            @*@(Html.DevExtreme().CheckBoxFor(m => m.Accepted)
+            @(Html.DevExtreme().CheckBoxFor(m => m.Accepted)
                 .ID("check")
                 .Text("I agree to the Terms and Conditions")
-            )*@
+            )
         </div>
 
-        <div class="dx-fieldset" display="block">
+        <div class="dx-fieldset">
             @(Html.DevExtreme().ValidationSummary()
                 .ID("summary")
             )
 
             @(Html.DevExtreme().Button()
                 .ID("button")
-                .Text("Submit")
+                .Text("Register")
                 .Type(ButtonType.Success)
                 .UseSubmitBehavior(true)
-                .Display 
             )
         </div>
     }

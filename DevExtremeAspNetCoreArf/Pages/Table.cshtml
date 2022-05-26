@@ -3,7 +3,7 @@
 
 <h2>Table</h2>
 
-@(Html.DevExtreme().DataGrid<SampleOrder>()
+@(Html.DevExtreme().DataGrid<Order>()
     .ShowBorders(true)
     .DataSource(d => d.Mvc().Controller("SampleData").LoadAction("Get").Key("OrderID"))
     .Columns(columns => {

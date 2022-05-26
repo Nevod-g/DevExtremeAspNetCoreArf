@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using DevExtremeAspNetCoreArf.Models;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
+using DevExtremeAspNetCoreArf.Models.Data;
 
-namespace DevExtremeAspNetCoreArf.Controllers {
+namespace DevExtremeAspNetCoreArf.Controllers
+{
 
-    [Route("api/[controller]")]
+	[Route("api/[controller]")]
     public class SampleDataController : Controller {
 
         [HttpGet]

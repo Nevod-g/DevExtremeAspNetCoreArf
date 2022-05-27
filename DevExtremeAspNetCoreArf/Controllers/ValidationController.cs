@@ -13,7 +13,7 @@ namespace DevExtremeAspNetCoreArf.Controllers
         {
             return View(new EditorsViewModel
             {
-                Name = "Peter"
+                ContactName = "Peter"
             });
         }
 

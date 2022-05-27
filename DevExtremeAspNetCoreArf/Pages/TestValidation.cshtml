@@ -50,10 +50,10 @@
             <div class="dx-fieldset-header">Personal Data</div>
             <div class="dx-field">
                 <div class="dx-field-label">
-                    @Html.LabelFor(m => m.Name)
+                    @Html.LabelFor(m => m.ContactName)
                 </div>
                 <div class="dx-field-value">
-                    @Html.DevExtreme().TextBoxFor(m => m.Name)
+                    @Html.DevExtreme().TextBoxFor(m => m.ContactName)
                 </div>
             </div>
             <div class="dx-field">
@@ -97,10 +97,10 @@
             </div>
             <div class="dx-field">
                 <div class="dx-field-label">
-                    @Html.LabelFor(m => m.Phone) <i>(optional)</i>
+                    @Html.LabelFor(m => m.PhoneNumber) <i>(optional)</i>
                 </div>
                 <div class="dx-field-value">
-                    @(Html.DevExtreme().TextBoxFor(m => m.Phone)
+                    @(Html.DevExtreme().TextBoxFor(m => m.PhoneNumber)
                         .Mask("+1 (X00) 000-0000")
                         .MaskRules(new { X = new JS("/[02-9]/") })
                         .MaskInvalidMessage("The phone must have a correct USA phone format")

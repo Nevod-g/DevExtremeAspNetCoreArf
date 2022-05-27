@@ -25,9 +25,9 @@
                 margin-bottom: 10px;           
             }
 
-            #button {
+            #ContinueButton {
                 display: block;
-                width: 100%;
+                width: 30%;
                 text-align: center;
                 margin-left: auto;
             }
@@ -56,89 +56,118 @@
                 margin-bottom: 20px;
                 border-radius: 0 15px 15px 15px;
             }
+
+            .panel-information {
+                padding: 15px;
+                background-color: rgba(90, 190, 255, 0.30);
+                margin-top: -15px;
+                margin-bottom: 20px;
+                border-radius: 0 15px 15px 15px;
+            }
+
+            .panel-exclamation {
+                padding: 15px;
+                background-color: bisque;
+                margin-top: -15px;
+                margin-bottom: 20px;
+                border-radius: 0 15px 15px 15px;
+            }
+
+            .full-width-content {
+                width: 100%;
+                margin-top: 30px;
+            }
+
+            .full-width-content > .dx-widget {
+                margin-bottom: 0px;
+            }
+
+            .full-width-content .dx-field {
+                max-width: 385px;
+            }
         </style>
  
         <div class="dx-fieldset" id="field-container">
 
             <div class="dx-fieldset-header">Project Type</div>
             <div class="panel">
-            <div class="flex-container" style="margin-left: 10%; width: 90%;">
-                <div class="dx-field" style="flex-grow: 17;">
-                    <div class="dx-field">                        
+                <div class="flex-container" style="margin-left: 10%; width: 90%;">
+                    <div class="dx-field" style="flex-grow: 17;">
+                        <div class="dx-field">                        
+                            <div class="dx-field-lable" style="width: 100%; text-align: left; margin-top: 6px;">
+                                @(Html.DevExtreme().CheckBoxFor(m => m.ClassifiedOrControlled)
+                                    .ID("ClassifiedOrControlled")
+                                    .Text("Classified/Controlled")
+                                    .Value(null)
+                                    )
+                            </div>
+                        </div>
+                    </div>
+                    <div style="flex-grow: 83;">
+                        <div class="dx-field">
+                            <div class="dx-field-label" style="width: 70%; text-align: right;">
+                                Enter ECCN or USML number for parts if known:
+                            </div>
+                            <div class="dx-field-value" style="width: 30%;">
+                                @(Html.DevExtreme().TextBoxFor(m => m.PartsNumber)
+                                    .Placeholder("ECCN or USML")
+                                )
+                            </div>
+                        </div>
+                    </div>
+                </div>      
+             
+                <div class="flex-container" style="margin-left: 10%; width: 90%;">
+                    <div class="dx-field" style="flex-grow: 3;">
                         <div class="dx-field-lable" style="width: 100%; text-align: left; margin-top: 6px;">
-                            @(Html.DevExtreme().CheckBoxFor(m => m.ClassifiedOrControlled)
-                                .ID("ClassifiedOrControlled")
-                                .Text("Classified/Controlled")
+                            @(Html.DevExtreme().CheckBoxFor(m => m.ITAR)
+                                .ID("ITAR")
+                                .Text("ITAR")
                                 .Value(null)
+                                .Hint("IPG Sales to Contact IPG Trade compliance officer (1149) first. Or Ext 1122 before sending parts or information to lab.")
                                 )
                         </div>
-                    </div>
-                </div>
-                <div style="flex-grow: 83;">
-                    <div class="dx-field">
-                        <div class="dx-field-label" style="width: 70%; text-align: right;">
-                            Enter ECCN or USML number for parts if known:
-                        </div>
-                        <div class="dx-field-value" style="width: 30%;">
-                            @(Html.DevExtreme().TextBoxFor(m => m.PartsNumber)
-                                .Placeholder("ECCN or USML")
-                            )
-                        </div>
-                    </div>
-                </div>
-            </div>      
-             
-            <div class="flex-container" style="margin-left: 10%; width: 90%;">
-                <div class="dx-field" style="flex-grow: 3;">
-                    <div class="dx-field-lable" style="width: 100%; text-align: left; margin-top: 6px;">
-                        @(Html.DevExtreme().CheckBoxFor(m => m.ITAR)
-                            .ID("ITAR")
-                            .Text("ITAR")
-                            .Value(null)
-                            .Hint("IPG Sales to Contact IPG Trade compliance officer (1149) first. Or Ext 1122 before sending parts or information to lab.")
-                            )
-                    </div>
                     
-                    @*<div class="dx-field-label" style="width: 90%;">
-                        ITAR
+                        @*<div class="dx-field-label" style="width: 90%;">
+                            ITAR
+                        </div>
+                        <div class="dx-field-value" style="width: 10%; text-align: left;">
+                            @(Html.DevExtreme().CheckBoxFor(m => m.ITAR)
+                                .ID("ITAR")
+                                .Text("")
+                                .Value(null)
+                                .Hint("IPG Sales to Contact IPG Trade compliance officer (1149) first. Or Ext 1122 before sending parts or information to lab.")
+                            )
+                        </div>*@
                     </div>
-                    <div class="dx-field-value" style="width: 10%; text-align: left;">
-                        @(Html.DevExtreme().CheckBoxFor(m => m.ITAR)
-                            .ID("ITAR")
-                            .Text("")
-                            .Value(null)
-                            .Hint("IPG Sales to Contact IPG Trade compliance officer (1149) first. Or Ext 1122 before sending parts or information to lab.")
-                        )
-                    </div>*@
+                    <div style="flex-grow: 7;">
+                        <div class="dx-field-label" style="width: 100%; text-align: right; font-size:80%; color: dimgray;">
+                            <i>IPG Sales to Contact IPG Trade compliance officer (1149) first. Or Ext 1122 before sending parts or information to lab.</i>
+                        </div>                    
+                    </div>
                 </div>
-                <div style="flex-grow: 7;">
-                    <div class="dx-field-label" style="width: 100%; text-align: right; font-size:80%;">
-                        <i>(IPG Sales to Contact IPG Trade compliance officer (1149) first. Or Ext 1122 before sending parts or information to lab.)</i>
-                    </div>                    
-                </div>
-            </div>
             </div>
         
             <div class="dx-fieldset-header">Sample Type</div>
             <div class="panel">
-            <div class="flex-container" style="margin-left: 10%; width: 90%;">
-                <div class="dx-field" style="flex-grow: 5;">
-                    @(Html.DevExtreme().CheckBoxFor(m => m.ArePartsTest)
-                        .ID("ArePartsTest")
-                        .Text("Are the parts test samples/coupons")
-                        .Value(null)
-                        .Hint("")
-                    )
+                <div class="flex-container" style="margin-left: 10%; width: 90%;">
+                    <div class="dx-field" style="flex-grow: 5;">
+                        @(Html.DevExtreme().CheckBoxFor(m => m.ArePartsTest)
+                            .ID("ArePartsTest")
+                            .Text("Are the parts test samples/coupons")
+                            .Value(null)
+                            .Hint("")
+                        )
+                    </div>
+                    <div class="dx-field" style="flex-grow: 5;">
+                        @(Html.DevExtreme().CheckBoxFor(m => m.UsedInManufacturing)
+                            .ID("UsedInManufacturing")
+                            .Text("Is this a part for use in manufacturing")
+                            .Value(null)
+                            .Hint("If yes, provided the USML or ECCN number above.")
+                        )
+                    </div>
                 </div>
-                <div class="dx-field" style="flex-grow: 5;">
-                    @(Html.DevExtreme().CheckBoxFor(m => m.UsedInManufacturing)
-                        .ID("UsedInManufacturing")
-                        .Text("Is this a part for use in manufacturing")
-                        .Value(null)
-                        .Hint("If yes, provided the USML or ECCN number above.")
-                    )
-                </div>
-            </div>
             </div>
         </div>            
 
@@ -286,12 +315,12 @@
                             </div>
                             <div class="dx-field-value" style="width: 80%;">
                                 @(Html.DevExtreme().TextBoxFor(m => m.City)
-                                    .Placeholder("Town/City")
+                                    .Placeholder("Town/City")                                    
                                 )
                             </div>
                         </div>
                     </div>
-                </div>            
+                </div>
             
                 <div class="dx-field" style="text-align: right;">
                     <div class="dx-field-label" style="width: 10%;">
@@ -307,21 +336,298 @@
             </div>
         </div>
 
+        <div class="dx-fieldset" id="field-container">
+            <div class="dx-fieldset-header" style="text-align: left;">IPG Sales Contact</div>
+            <div class="panel">
+            
+                <div class="flex-container" style="margin-left: 10%; width: 90%;">
+                    <div class="dx-field" style="flex-grow: 3;">
+                        <div class="dx-field-lable" style="width: 100%; text-align: left; margin-top: 6px;">
+                            @(Html.DevExtreme().CheckBoxFor(m => m.IsNewCustomer)
+                                .ID("IsNewCustomer")
+                                .Text("New Customer")
+                                .Value(null)
+                                .Hint("If yes have Screened (Ext 1149 or 1122)")
+                                )
+                        </div>
+                    </div>
+                    <div style="flex-grow: 7;">
+                        <div class="dx-field-label" style="width: 100%; text-align: right; font-size:80%; color: dimgray;">
+                            <i>If you are a new client, have Screened (Ext 1149 or 1122).</i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dx-field" style="text-align: right;">
+                    <div class="dx-field-label" style="width: 10%;">
+                        Opportunity
+                    </div>
+                    <div class="dx-field-value" style="width: 90%;">
+                        @(Html.DevExtreme().SelectBoxFor(m => m.Country)
+                            .DataSource(d => d.Mvc().Controller("GeoNames").LoadAction("Opportunitys").Key("this"))
+                            .Placeholder("Select Opportunity")
+                            .Hint("In this list includes states, provinces and territories.")
+                        )
+                    </div>
+                </div>
+            </div>            
+        </div>            
+
+        <div class="dx-fieldset" id="field-container">
+            <div class="dx-fieldset-header" style="text-align: left;">Application</div>
+            <div class="panel">
+
+                <div class="flex-container" style="text-align: right;">
+                    <div class="dx-field" style="flex-grow: 5; margin-left: -2px;">
+                        <div class="dx-field">
+                            <div class="dx-field-label" style="width: 21%;">
+                                Type
+                            </div>
+                            <div class="dx-field-value" style="width: 79%;">
+                                @(Html.DevExtreme().SelectBoxFor(m => m.ProcessType)
+                                    .DataSource(d => d.Mvc().Controller("GeoNames").LoadAction("ProcessTypes").Key("this"))
+                                    .Placeholder("Select Process Type")
+                                )
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dx-field" style="flex-grow: 5;">
+                        <div class="dx-field">
+                            <div class="dx-field-label" style="width: 20%;">
+                                Explanation
+                            </div>
+                            <div class="dx-field-value" style="width: 80%;">
+                                @(Html.DevExtreme().TextBoxFor(m => m.OtherProcessType)
+                                    .Placeholder("Please explain")                                    
+                                )
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+
+                <div class="flex-container" style="margin-left: 10%; width: 90%;">
+                    <div class="dx-field" style="flex-grow: 3;">
+                        <div class="dx-field-lable" style="width: 100%; text-align: left; margin-top: 6px;">
+                            @(Html.DevExtreme().CheckBoxFor(m => m.PrintAttached)
+                                .ID("PrintAttached")
+                                .Text("Print Attached")
+                                .Value(null)
+                                .Hint("If no print available, please provide sketch or photo.")
+                                )
+                        </div>
+                    </div>
+                    <div style="flex-grow: 7;">
+                        <div class="dx-field-label" style="width: 100%; text-align: right; font-size:80%; color: dimgray;">
+                            <i>If no print available, please provide sketch or photo.</i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dx-field" style="margin-top: -20px; page-break-after: always;">
+                    <div class="dx-field-label" style="width: 20%;">
+                        Description
+                    </div>
+                    <div class="full-width-content">
+                        @(Html.DevExtreme().TextAreaFor(m => m.ApplicationDescription)
+                            .Placeholder("Application Description")
+                            .Height(120)
+                        )
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dx-fieldset" id="field-container">
+            <div class="dx-fieldset-header" style="text-align: left;">Samples Description</div>
+            <div class="panel">
+
+                <div class="dx-field" style="text-align: right;">
+                    <div class="dx-field-label" style="width: 10%;">
+                        Material 1
+                    </div>
+                    <div class="dx-field-value" style="width: 90%;">
+                        @(Html.DevExtreme().TextBoxFor(m => m.Material1)
+                            .Placeholder("Material 1")
+                        )
+                    </div>
+                </div>
+                <div class="dx-field" style="margin-top: 0px; text-align: right;">
+                    <div class="dx-field-label" style="width: 10%;">
+                        Description
+                    </div>
+                    <div class="dx-field-value" style="width: 90%;">
+                        @(Html.DevExtreme().TextAreaFor(m => m.Material1Description)
+                            .Placeholder("Description for Material 1")
+                            .Height(70)
+                        )
+                    </div>
+                </div>
+
+                <div class="dx-field" style="text-align: right;">
+                    <div class="dx-field-label" style="width: 10%;">
+                        Material 2
+                    </div>
+                    <div class="dx-field-value" style="width: 90%;">
+                        @(Html.DevExtreme().TextBoxFor(m => m.Material1)
+                            .Placeholder("Material 2")
+                        )
+                    </div>
+                </div>
+                <div class="dx-field" style="margin-top: 0px; text-align: right;">
+                    <div class="dx-field-label" style="width: 10%;">
+                        Description
+                    </div>
+                    <div class="dx-field-value" style="width: 90%;">
+                        @(Html.DevExtreme().TextAreaFor(m => m.Material2Description)
+                            .Placeholder("Description for Material 2")
+                            .Height(70)
+                        )
+                    </div>
+                </div>
+
+                <div class="flex-container" style="margin-left: 10%; width: 90%;">
+                    <div class="dx-field" style="flex-grow: 3;">
+                        <div class="dx-field-lable" style="width: 100%; text-align: left; margin-top: 6px;">
+                            @(Html.DevExtreme().CheckBoxFor(m => m.MsdsSdsAttached)
+                                .ID("MsdsSdsAttached")
+                                .Text("MSDS/SDS Attached")
+                                .Value(null)
+                                )
+                        </div>
+                    </div>
+                    <div style="flex-grow: 7;">
+                        <div class="dx-field-label" style="width: 100%; text-align: right; font-size:80%; color: dimgray;">
+                            <i></i>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+        </div>
+
+        <div class="dx-fieldset" id="field-container">
+            <div class="dx-fieldset-header">Testing Follow Up</div>
+            <div class="panel">
+                <div class="flex-container" style="margin-left: 10%; width: 90%;">
+                    <div class="dx-field" style="flex-grow: 3;">
+                        @(Html.DevExtreme().CheckBoxFor(m => m.NeedReturnCompletedSamples)
+                            .ID("NeedReturnCompletedSamples")
+                            .Text("Return completed samples")
+                            .Value(null)
+                        )
+                    </div>
+                    <div class="dx-field" style="flex-grow: 3;">
+                        @(Html.DevExtreme().CheckBoxFor(m => m.NeedReturnSubmittedParts)
+                            .ID("NeedReturnSubmittedParts")
+                            .Text("Return all submitted parts")
+                            .Value(null)
+                        )
+                    </div>
+                    <div class="dx-field" style="flex-grow: 3;">
+                        @(Html.DevExtreme().CheckBoxFor(m => m.SampleScrapUnused)
+                            .ID("SampleScrapUnused")
+                            .Text("Scrap unused sample")
+                            .Value(null)                            
+                        )
+                    </div>
+                </div>
+
+                <div class="flex-container" style="text-align: right;">
+                    <div class="dx-field" style="flex-grow: 5; margin-left: 0px;">
+                        <div class="dx-field">
+                            <div class="dx-field-label" style="width: 20%;">
+                                Shipping
+                            </div>
+                            <div class="dx-field-value" style="width: 80%;">
+                                @(Html.DevExtreme().TextBoxFor(m => m.ShippingCompany)                                    
+                                    .Placeholder("Shipping Company")
+                                )
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dx-field" style="flex-grow: 5;">
+                        <div class="dx-field">
+                            <div class="dx-field-label" style="width: 20%;">
+                                Account
+                            </div>
+                            <div class="dx-field-value" style="width: 80%;">
+                                @(Html.DevExtreme().TextBoxFor(m => m.AccountNumber)
+                                    .Placeholder("Account Number")                                    
+                                )
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="width: 100%; text-align: left; font-size:80%; color: darkred;">            
+                <div class="panel-exclamation">
+                    <i>IPG Photonics does not assume responsibility for costs for shipping or returning parts.</i><br>
+                    <i>Any items left at IPG will be scrapped 30 days after completion of testing, unless alternate arrangements are made.</i>
+                </div>          
+            </div>
+        </div>
+
+        <div class="dx-fieldset" id="field-container">
+            <div class="dx-fieldset-header" style="text-align: left;">Internal Notes</div>
+            <div class="panel">
+
+                <div class="full-width-content" style="margin-top: 0px;">
+                    @(Html.DevExtreme().TextAreaFor(m => m.InternalNotes)
+                        .Placeholder("Internal Notes")
+                        .Height(270)
+                    )
+                </div>              
+            </div>
+
+            <div style="width: 100%; text-align: left; font-size:80%; color: lightslategray;">            
+                <div class="panel-information">
+                    <i><b>Please send this completed form with any attached prints, photos, documents to:</b>
+                        <br>Attention: Vijay Kancharla
+                        <br>IPG Photonics Corporation
+                        <br>259 Cedar Hill Street 
+                        <br>Marlborough,MA 01752
+                        <br>Email: <a href="mailto:vkancharla@ipgphotonics.com">vkancharla@ipgphotonics.com</a>
+                    </i>
+                </div>
+            </div>            
+        </div>
 
         <div class="dx-fieldset" display="block">
             @(Html.DevExtreme().ValidationSummary()
                 .ID("summary")
             )
 
-            @(Html.DevExtreme().Button()
-                .ID("button")
-                .Text("SUBMIT")
-                .Type(ButtonType.Success)
-                .UseSubmitBehavior(true)
-            )
+            <div class="flex-container" style="margin-left: 0%; width: 100%;">
+                <div class="dx-field" style="flex-grow: 3;">
+                    @(Html.DevExtreme().Button()
+                        .ID("ImportButton")
+                        .Text("Import Data")
+                        .Type(ButtonType.Normal)
+                        .UseSubmitBehavior(true)
+                    )
+                    @(Html.DevExtreme().Button()
+                        .ID("SaveButton")
+                        .Text("Save")
+                        .Type(ButtonType.Default)
+                        .UseSubmitBehavior(false)
+                    )
+                </div>
+ 
+                <div class="dx-field" style="flex-grow: 6;">
+                    @(Html.DevExtreme().Button()
+                        .ID("ContinueButton")
+                        .Text("Continue")
+                        .Type(ButtonType.Success)
+                        .UseSubmitBehavior(false)
+                    )
+                </div>
+            </div>
         </div>
     }
 }
 
-                        Настроить валидацию.
+                        Настроить валидацию (в т.ч. по флажку).
                         Обновить справочник стран.
+                        Please explain - должен отображаться только когда требуется.
+                        Сохранить документ в формате PDF.
+                        Нарезать печать

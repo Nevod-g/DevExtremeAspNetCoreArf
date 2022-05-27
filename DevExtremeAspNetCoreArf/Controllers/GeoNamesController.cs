@@ -23,6 +23,17 @@ namespace DevExtremeAspNetCoreArf.Controllers.ApiControllers
         {
             return DataSourceLoader.Load(SampleData.Cities, loadOptions);
         }
+
+        [HttpGet]
+        public object Opportunitys(DataSourceLoadOptions loadOptions)
+        {
+            return DataSourceLoader.Load(SampleData.Opportunitys, loadOptions);
+        }
+
+        [HttpGet]
+        public object ProcessTypes(DataSourceLoadOptions loadOptions)
+        {
+            return DataSourceLoader.Load(SampleData.ProcessTypes, loadOptions);
+        }
     }
 }
-

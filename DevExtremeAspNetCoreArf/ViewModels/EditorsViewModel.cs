@@ -14,6 +14,12 @@ namespace DevExtremeAspNetCoreArf.ViewModels
         public bool ITAR { get; set; }
         public bool ArePartsTest { get; set; }
         public bool UsedInManufacturing { get; set; }
+        public bool IsNewCustomer { get; set; }
+        public bool PrintAttached { get; set; }
+        public bool MsdsSdsAttached { get; set; }
+        public bool NeedReturnCompletedSamples { get; set; }
+        public bool NeedReturnSubmittedParts { get; set; }
+        public bool SampleScrapUnused { get; set; }
 
         [Required(ErrorMessage = "Contact Name is required")]
         [RegularExpression(@"^[^0-9]+$", ErrorMessage = "Do not use digits in the Contact Name.")]
@@ -56,7 +62,22 @@ namespace DevExtremeAspNetCoreArf.ViewModels
         [Required(ErrorMessage = "City is required")]
         [RegularExpression("^[^0-9]+$", ErrorMessage = "Do not use digits in the City name.")]
         [StringLength(int.MaxValue, MinimumLength = 2, ErrorMessage = "City must have at least 2 symbols")]
-        public string City { get; set; }
+        public string City { get; set; } = "Test City";
+
+        public string Opportunity { get; set; }
+
+        [Required(ErrorMessage = "Process Type is required")]
+        public string ProcessType { get; set; }
+        public string OtherProcessType { get; set; }
+        public string ApplicationDescription { get; set; }
+        public string InternalNotes { get; set; }
+        public string Material1 { get; set; }
+        public string Material1Description { get; set; }
+        public string Material2 { get; set; }
+        public string Material2Description { get; set; }
+        public string MaterialComments { get; set; }
+        public string ShippingCompany { get; set; }
+        public string AccountNumber { get; set; }
 
 
 
@@ -66,17 +87,9 @@ namespace DevExtremeAspNetCoreArf.ViewModels
 
         [Required(ErrorMessage = "Confirm Password is required")]
         [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "'Password' and 'Confirm Password' do not match.")]
-        public string ConfirmPassword { get; set; }        
+        public string ConfirmPassword { get; set; }
 
-        public string Extension { get; set; }
-
-        
-
-        public int Age { get; set; }
-
-        public string Drink { get; set; }
-
-        
+        public int Age { get; set; }        
 
         public IEnumerable<string> Colors { get; set; }
 

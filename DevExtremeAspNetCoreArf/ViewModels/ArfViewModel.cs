@@ -13,6 +13,7 @@ namespace DevExtremeAspNetCoreArf.ViewModels
         //[VerifyCheckBox(ErrorMessage = "Determine the value of 'Classified/Controlled'")]
         //[Compare("IsNull", ErrorMessage = "sss111")]
         //[Remote("VerifyCheckBox", "RemoteValidation", ErrorMessage = "Determine the value of 'Classified/Controlled'", HttpMethod = "POST")]
+        //[Required (ErrorMessage = "Determine the value of 'Classified/Controlled'")]
         public bool? ClassifiedOrControlled { get; set; }
 
         [DevExtremeRequired(ErrorMessage = "Determine the value of 'ITAR'")]
@@ -76,7 +77,7 @@ namespace DevExtremeAspNetCoreArf.ViewModels
         public string Country { get; set; }
 
         [Required(ErrorMessage = "Address is required")]
-        public string Address { get; set; }
+        public string Address { get; set; } = "Engelsa 15-8-6";
 
         public string Description { get; set; }
 

@@ -7,16 +7,14 @@ using System.Linq;
 
 namespace DevExtremeAspNetCoreArf.ViewModels
 {
-    public class EditorsViewModel
+    public class ArfViewModel
     {
-		//public bool? IsNull => false;
-
-		[Display(Name = "Classified/Controlled")]
-		//[VerifyCheckBox(ErrorMessage = "Determine the value of 'Classified/Controlled'")]
+        [Display(Name = "Classified/Controlled")]
+        //[VerifyCheckBox(ErrorMessage = "Determine the value of 'Classified/Controlled'")]
         //[Compare("IsNull", ErrorMessage = "sss111")]
         //[Remote("VerifyCheckBox", "RemoteValidation", ErrorMessage = "Determine the value of 'Classified/Controlled'", HttpMethod = "POST")]
         public bool? ClassifiedOrControlled { get; set; }
- 
+
         [DevExtremeRequired(ErrorMessage = "Determine the value of 'ITAR'")]
         public bool? ITAR { get; set; }
 
@@ -35,12 +33,11 @@ namespace DevExtremeAspNetCoreArf.ViewModels
         [DevExtremeRequired(ErrorMessage = "Determine the value of 'MSDS/SDS Attached'")]
         public bool? MsdsSdsAttached { get; set; }
 
-        [DevExtremeRequired(ErrorMessage = "Determine the value of 'No Existing Process'")]
-        public bool? NoExistingProcess { get; set; }
+        public bool NoExistingProcess { get; set; } = true;
 
-        [DevExtremeRequired(ErrorMessage = "Determine the value of 'Fixturing Provided'")]        
-		public bool? FixturingProvided { get; set; }
-		
+        [DevExtremeRequired(ErrorMessage = "Determine the value of 'Fixturing Provided'")]
+        public bool? FixturingProvided { get; set; }
+
         [DevExtremeRequired(ErrorMessage = "Determine the value of 'Return completed Samples'")]
         public bool? NeedReturnCompletedSamples { get; set; }
 
@@ -49,8 +46,6 @@ namespace DevExtremeAspNetCoreArf.ViewModels
 
         [DevExtremeRequired(ErrorMessage = "Determine the value of 'Scrap  unused Sample'")]
         public bool? SampleScrapUnused { get; set; }
-
-        
 
 
 
@@ -66,7 +61,7 @@ namespace DevExtremeAspNetCoreArf.ViewModels
         [RegularExpression(@"^[^0-9]+$", ErrorMessage = "Do not use digits in the Company Name.")]
         [StringLength(int.MaxValue, MinimumLength = 2, ErrorMessage = "Name must have at least 2 symbols")]
         public string CompanyName { get; set; }
-        
+
         public string PhoneNumber { get; set; }
         [RegularExpression(@"^[02-9]\d{9}$", ErrorMessage = "The phone must have a correct phone format")]
         public string MobileNumber { get; set; }
@@ -74,7 +69,7 @@ namespace DevExtremeAspNetCoreArf.ViewModels
         [Required(ErrorMessage = "Email is required")]
         [RegularExpression(@"^[\d\w._-]+@[\d\w._-]+\.[\w]+$", ErrorMessage = "Email is invalid")]
         [Remote("CheckEmailAddress", "RemoteValidation", ErrorMessage = "Email is already registered", HttpMethod = "POST")]
-        public string Email { get; set; }        
+        public string Email { get; set; }
 
         [Required(ErrorMessage = "Country is required")]
         public string Country { get; set; }
@@ -104,6 +99,8 @@ namespace DevExtremeAspNetCoreArf.ViewModels
         [Required(ErrorMessage = "Process Type is required")]
         public string ProcessType { get; set; }
         public string OtherProcessType { get; set; }
+
+        [Display(Name = "Description")]
         public string ApplicationDescription { get; set; }
         public string InternalNotes { get; set; }
         public string Material1 { get; set; }
@@ -113,8 +110,13 @@ namespace DevExtremeAspNetCoreArf.ViewModels
         public string MaterialComments { get; set; }
         public string ShippingCompany { get; set; }
         public string AccountNumber { get; set; }
+
+        [Display(Name = "Process")]
         public string CurrentProcess { get; set; }
+        [Display(Name = "Throughput")]
         public string CurrentThroughput { get; set; }
+
+        [Display(Name = "Reason for considering fiber laser vs existing process:")]
         [Required(ErrorMessage = "Description Reason for considering is required")]
         public string DescriptionReasonConsidering { get; set; }
         public string Laser { get; set; }
@@ -123,29 +125,8 @@ namespace DevExtremeAspNetCoreArf.ViewModels
         public string OtherConditions { get; set; }
         public string Quality { get; set; }
         public string Throughput { get; set; }
+
+        [Display(Name = "Other concerns (specify)")]
         public string OtherConcerns { get; set; }
-
-        //[Required(ErrorMessage = "Password is required")]
-        //public string Password { get; set; }
-
-        //[Required(ErrorMessage = "Confirm Password is required")]
-        //[Compare("Password", ErrorMessage = "'Password' and 'Confirm Password' do not match.")]
-        //public string ConfirmPassword { get; set; }
-
-        //public int Age { get; set; }        
-
-        //public IEnumerable<string> Colors { get; set; }
-
-        //public IEnumerable<string> SelectedColors { get; set; }
-
-        //public string Color { get; set; }
-
-        //[Display(Name = "Date of birth")]
-        //[Required(ErrorMessage = "Date of birth is required")]
-        //[VerifyAge(21, ErrorMessage = "You must be at least {1} years old")]
-        //public DateTime? Date { get; set; }
-
-        //[DevExtremeRequired(ErrorMessage = "You must agree to the Terms and Conditions")]
-        //public bool? Accepted { get; set; }
     }
 }

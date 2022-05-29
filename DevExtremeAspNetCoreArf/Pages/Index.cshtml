@@ -7,11 +7,11 @@
     <center>
         <i><b>
             Please fill this form as completely as possible and send with samples. Filling this form will help speed up your processing request.
-        </i></b>
+        </b></i>
     </center>
 <p />
 
-@model DevExtremeAspNetCoreArf.ViewModels.EditorsViewModel
+@model DevExtremeAspNetCoreArf.ViewModels.ArfViewModel
 
 @using(Html.BeginForm()) {
 
@@ -77,15 +77,17 @@
 
             .full-width-content {
                 width: 100%;
-                margin-top: 30px;
+                margin-top: -5px;
             }
 
             .full-width-content > .dx-widget {
+                width: 100%;
                 margin-bottom: 0px;
             }
 
             .full-width-content .dx-field {
-                max-width: 385px;
+                width: 100%;
+                margin-top: -5px;
             }
         </style>
  
@@ -101,7 +103,9 @@
                                     .ID("ClassifiedOrControlled")
                                     .Text("Classified/Controlled")
                                     .Value(null)
-                                    .OnValueChanged("CheckBox_OnValueChanged")                            
+                                    //.IsValid(false)
+                                    //.ValidationErrors("111")
+                                    .OnValueChanged("checkBox_onValueChanged")                            
                                     )
                             </div>
                         </div>
@@ -113,7 +117,7 @@
                             </div>
                             <div class="dx-field-value" style="width: 30%;">
                                 @(Html.DevExtreme().TextBoxFor(m => m.PartsNumber)
-                                    .Placeholder("ECCN or USML")
+                                    .Placeholder("ECCN or USML")                                    
                                 )
                             </div>
                         </div>
@@ -128,6 +132,7 @@
                                 .Text("ITAR")
                                 .Value(null)
                                 .Hint("IPG Sales to Contact IPG Trade compliance officer (1149) first. Or Ext 1122 before sending parts or information to lab.")
+                                .OnValueChanged("checkBox_valueChanged")
                                 )
                         </div>
                     
@@ -426,12 +431,13 @@
                     </div>
                 </div>
 
-                <div class="dx-field" style="margin-top: -20px; page-break-after: always;">
-                    <div class="dx-field-label" style="width: 20%;">
-                        Description
+                <div class="full-width-content" style="page-break-after: always;">
+                    <div class="dx-widget">
+                        @Html.LabelFor(m => m.ApplicationDescription)
                     </div>
-                    <div class="full-width-content">
+                    <div class="dx-field">
                         @(Html.DevExtreme().TextAreaFor(m => m.ApplicationDescription)
+                            .ID("ApplicationDescription")
                             .Placeholder("Application Description")
                             .Height(120)
                         )
@@ -507,6 +513,7 @@
             </div>            
         </div>
 
+        //<div class="dx-fieldset" id="field-container" style="@(Model.NoExistingProcess ? "display:block" : "display:none")">
         <div class="dx-fieldset" id="field-container">
             <div class="dx-fieldset-header" style="text-align: left;">Existing Process Description</div>
             <div class="panel">
@@ -517,7 +524,8 @@
                             @(Html.DevExtreme().CheckBoxFor(m => m.NoExistingProcess)
                                 .ID("NoExistingProcess")
                                 .Text("No Existing Process")
-                                .Value(null)
+                                .Value(false)
+                                .OnValueChanged("noExistingProcess_checkBox_valueChanged")
                                 )
                         </div>
                     </div>
@@ -528,14 +536,15 @@
                     </div>
                 </div>
 
-                <div class="flex-container" style="text-align: right;">
+                <div class="flex-container" style="text-align: right;" id="ExistingProcessSpace1">
                     <div class="dx-field" style="flex-grow: 5; margin-left: -2px;">
                         <div class="dx-field">
                             <div class="dx-field-label" style="width: 21%;">
-                                Process
+                                @Html.LabelFor(m => m.CurrentProcess)
                             </div>
                             <div class="dx-field-value" style="width: 79%;">
                                 @(Html.DevExtreme().TextBoxFor(m => m.CurrentProcess)
+                                    .ID("CurrentProcess")
                                     .Placeholder("Current Process")                                    
                                 )
                             </div>
@@ -543,11 +552,12 @@
                     </div>
                     <div class="dx-field" style="flex-grow: 5;">
                         <div class="dx-field">
-                            <div class="dx-field-label" style="width: 30%;">
-                                Throughput
+                            <div class="dx-field-label" style="width: 30%;" id="CurrentThroughputLabel">
+                                @Html.LabelFor(m => m.CurrentThroughput)
                             </div>
                             <div class="dx-field-value" style="width: 70%;">
                                 @(Html.DevExtreme().TextBoxFor(m => m.CurrentThroughput)
+                                    .ID("CurrentThroughput")
                                     .Placeholder("Current Throughput")                                    
                                 )
                             </div>
@@ -555,12 +565,13 @@
                     </div>
                 </div>
 
-                <div class="dx-field" style="margin-top: 0px;">
-                    <div class="dx-field-label" style="width: 100%;">
-                        Reason for considering fiber laser vs existing process:
+                <div class="full-width-content" id="ExistingProcessSpace2">
+                    <div class="dx-widget">
+                        @Html.LabelFor(m => m.DescriptionReasonConsidering)
                     </div>
-                    <div class="full-width-content">
+                    <div class="dx-field">
                         @(Html.DevExtreme().TextAreaFor(m => m.DescriptionReasonConsidering)
+                            .ID("DescriptionReasonConsidering")
                             .Placeholder("Description Reason for considering")
                             .Height(120)
                         )
@@ -680,17 +691,17 @@
                     </div>
                 </div>
 
-                <div class="dx-field" style="margin-top: 0px;">
-                    <div class="dx-field-label" style="width: 100%;">
-                        Other concerns (specify)
+                <div class="full-width-content">
+                    <div class="dx-widget">
+                        @Html.LabelFor(m => m.OtherConcerns)                        
                     </div>
-                    <div class="full-width-content">
+                    <div class="dx-field">
                         @(Html.DevExtreme().TextAreaFor(m => m.OtherConcerns)
                             .Placeholder("Ex: Porosity, dross, HAZ etc. and additional comments")
-                            .Height(70)
+                            .Height(120)
                         )
                     </div>
-                </div>
+                </div>                
             </div>
         </div>
 
@@ -816,12 +827,40 @@
         </div>
 
         <script>
-            function CheckBox_OnValueChanged(e) {
+            function noExistingProcess_checkBox_valueChanged(source) {                
+                //$("#CurrentProcess").dxTextBox("instance").option("visible", source.value);
+                //$("#CurrentThroughput").dxTextBox("instance").option("visible", source.value);
+                //$("#DescriptionReasonConsidering").dxTextArea("instance").option("visible", source.value);
+                $("#CurrentProcess").dxTextBox("instance").option("disabled", source.value);
+                $("#CurrentThroughput").dxTextBox("instance").option("disabled", source.value);
+                $("#DescriptionReasonConsidering").dxTextArea("instance").option("disabled", source.value);   
+            }
+
+            function checkBox_onValueChanged(e) {
                 DevExpress.ui.notify({ message: 'Value: ' + e.value, width: 320 }, "success", 1000);
+
+                //Fails
+                //e.text = "ewrdf";
+                //e.option
+                //e.isValid = false;
+                //e.validationError
+                //e.validationErrors
+            }
+
+            function checkBox_valueChanged(data) {
+                DevExpress.ui.notify({ message: 'Value: ', width: 320 }, "normal", 1000);
+                //$("#ClassifiedOrControlled").dxCheckBox("instance").option("value", data.value);
+                //$("#ClassifiedOrControlled").dxCheckBox("instance").option("disabled", data.value);
+                $("#ClassifiedOrControlled").dxCheckBox("instance").option("isValid", data.value);
+                $("#ClassifiedOrControlled").dxCheckBox("instance").option("visible", data.value);
             }
 
             function Button_Click(e) {
                 DevExpress.ui.notify({ message: 'The button was clicked', width: 320 }, "success", 1000);
+            }
+
+            function addButton_click() {
+                DevExpress.ui.notify("Test");
             }
         </script>
     }

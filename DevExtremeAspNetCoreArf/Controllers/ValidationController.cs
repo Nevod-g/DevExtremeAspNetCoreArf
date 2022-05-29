@@ -1,4 +1,5 @@
 ﻿using DevExtremeAspNetCoreArf.ViewModels;
+using DevExtremeAspNetCoreArf.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace DevExtremeAspNetCoreArf.Controllers
         [HttpGet]
         public ActionResult Overview()
         {
-            return View(new EditorsViewModel
+            return View(new ArfViewModel
             {
                 ContactName = "Peter"
             });
@@ -19,14 +20,14 @@ namespace DevExtremeAspNetCoreArf.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Overview(EditorsViewModel userInfo)
+        public ActionResult Overview(ArfViewModel arfInfo)
         {
             if (ModelState.IsValid)
             {
                 return View("SuccessValidation");
             }
 
-            return View(userInfo);
+            return View(arfInfo);
         }
 
         [HttpPost]

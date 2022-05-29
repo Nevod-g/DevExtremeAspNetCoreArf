@@ -16,7 +16,7 @@ namespace DevExtremeAspNetCoreArf.Controllers
 
         [HttpGet]
         public object Get(DataSourceLoadOptions loadOptions) {
-            return DataSourceLoader.Load(SampleData.Orders, loadOptions);
+            return DataSourceLoader.Load(DataSource.Orders, loadOptions);
         }
 
     }

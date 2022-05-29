@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace DevExtremeAspNetCoreArf.Models.Data
 {
-	public partial class SampleData
+	public partial class DataSource
     {
         public static readonly IEnumerable<string> Countries = new[] {
             "Afghanistan",

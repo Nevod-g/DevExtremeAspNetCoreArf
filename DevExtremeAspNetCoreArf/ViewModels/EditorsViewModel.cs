@@ -9,20 +9,47 @@ namespace DevExtremeAspNetCoreArf.ViewModels
 {
     public class EditorsViewModel
     {
+        [DevExtremeRequired(ErrorMessage = "Determine the value of 'Classified/Controlled'")]
         public bool ClassifiedOrControlled { get; set; }
-        public string PartsNumber { get; set; }
-        [Required(ErrorMessage = "Determine the value of ITAR")]
+        
+        [DevExtremeRequired(ErrorMessage = "Determine the value of 'ITAR'")]
         public bool ITAR { get; set; }
-        [DevExtremeRequired(ErrorMessage = "!!!You must agree to the Terms and Conditions!!!")]
+
+        [DevExtremeRequired(ErrorMessage = "Determine the value of 'Are the parts test samples/coupons'")]
         public bool ArePartsTest { get; set; }
+
+        [DevExtremeRequired(ErrorMessage = "Determine the value of 'Is this a part for use in manufacturing'")]
         public bool UsedInManufacturing { get; set; }
+
+        [DevExtremeRequired(ErrorMessage = "Determine the value of 'New Customer'")]
         public bool IsNewCustomer { get; set; }
+
+        [DevExtremeRequired(ErrorMessage = "Determine the value of 'Print Attached'")]
         public bool PrintAttached { get; set; }
+
+        [DevExtremeRequired(ErrorMessage = "Determine the value of 'MSDS/SDS Attached'")]
         public bool MsdsSdsAttached { get; set; }
-        public bool NeedReturnCompletedSamples { get; set; }
-        public bool NeedReturnSubmittedParts { get; set; }
-        public bool SampleScrapUnused { get; set; }
+
+        [DevExtremeRequired(ErrorMessage = "Determine the value of 'No Existing Process'")]
         public bool NoExistingProcess { get; set; }
+
+        [DevExtremeRequired(ErrorMessage = "Determine the value of 'Fixturing Provided'")]        
+		public bool FixturingProvided { get; set; }
+		
+        [DevExtremeRequired(ErrorMessage = "Determine the value of 'Return completed Samples'")]
+        public bool NeedReturnCompletedSamples { get; set; }
+
+        [DevExtremeRequired(ErrorMessage = "Determine the value of 'Return all submitted Parts'")]
+        public bool NeedReturnSubmittedParts { get; set; }
+
+        [DevExtremeRequired(ErrorMessage = "Determine the value of 'Scrap  unused Sample'")]
+        public bool SampleScrapUnused { get; set; }
+
+        
+
+
+
+        public string PartsNumber { get; set; }
 
         [Required(ErrorMessage = "Contact Name is required")]
         [RegularExpression(@"^[^0-9]+$", ErrorMessage = "Do not use digits in the Contact Name.")]
@@ -85,9 +112,13 @@ namespace DevExtremeAspNetCoreArf.ViewModels
         public string CurrentThroughput { get; set; }
         [Required(ErrorMessage = "Description Reason for considering is required")]
         public string DescriptionReasonConsidering { get; set; }
-
-
-
+        public string Laser { get; set; }
+        public string Wavelength { get; set; }
+        public string ProcessGas { get; set; }        
+        public string OtherConditions { get; set; }
+        public string Quality { get; set; }
+        public string Throughput { get; set; }
+        public string OtherConcerns { get; set; }
 
         //[Required(ErrorMessage = "Password is required")]
         //public string Password { get; set; }
@@ -111,6 +142,5 @@ namespace DevExtremeAspNetCoreArf.ViewModels
 
         //[DevExtremeRequired(ErrorMessage = "You must agree to the Terms and Conditions")]
         //public bool Accepted { get; set; }
-
     }
 }

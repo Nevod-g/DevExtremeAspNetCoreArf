@@ -393,10 +393,10 @@
                     </div>
                     <div class="dx-field" style="flex-grow: 5;">
                         <div class="dx-field">
-                            <div class="dx-field-label" style="width: 20%;">
+                            <div class="dx-field-label" style="width: 30%;">
                                 Explanation
                             </div>
-                            <div class="dx-field-value" style="width: 80%;">
+                            <div class="dx-field-value" style="width: 70%;">
                                 @(Html.DevExtreme().TextBoxFor(m => m.OtherProcessType)
                                     .Placeholder("Please explain")                                    
                                 )
@@ -513,7 +513,7 @@
                         <div class="dx-field-lable" style="width: 100%; text-align: left; margin-top: 6px;">
                             @(Html.DevExtreme().CheckBoxFor(m => m.NoExistingProcess)
                                 .ID("NoExistingProcess")
-                                .Text("No existing process")
+                                .Text("No Existing Process")
                                 .Value(null)
                                 )
                         </div>
@@ -540,10 +540,10 @@
                     </div>
                     <div class="dx-field" style="flex-grow: 5;">
                         <div class="dx-field">
-                            <div class="dx-field-label" style="width: 20%;">
+                            <div class="dx-field-label" style="width: 30%;">
                                 Throughput
                             </div>
-                            <div class="dx-field-value" style="width: 80%;">
+                            <div class="dx-field-value" style="width: 70%;">
                                 @(Html.DevExtreme().TextBoxFor(m => m.CurrentThroughput)
                                     .Placeholder("Current Throughput")                                    
                                 )
@@ -552,7 +552,7 @@
                     </div>
                 </div>
 
-                <div class="dx-field" style="margin-top: 0px; page-break-after: always;">
+                <div class="dx-field" style="margin-top: 0px;">
                     <div class="dx-field-label" style="width: 100%;">
                         Reason for considering fiber laser vs existing process:
                     </div>
@@ -566,28 +566,153 @@
             </div>
         </div>
 
-        <div class="dx-fieldset" id="field-container">
+         <div class="dx-fieldset" id="field-container">
+            <div class="dx-fieldset-header" style="text-align: left;">Process Requirements (if known)</div>
+            <div class="panel">
+
+                <div class="flex-container" style="text-align: right;">
+                    <div class="dx-field" style="flex-grow: 5; margin-left: 2px;">
+                        <div class="dx-field">
+                            <div class="dx-field-label" style="width: 21%;">
+                                Laser
+                            </div>
+                            <div class="dx-field-value" style="width: 79%;">
+                                @(Html.DevExtreme().SelectBoxFor(m => m.Laser)
+                                    .DataSource(d => d.Mvc().Controller("GeoNames").LoadAction("Lasers").Key("this"))
+                                    .Placeholder("Select Laser")
+                                )
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dx-field" style="flex-grow: 5;">
+                        <div class="dx-field">
+                            <div class="dx-field-label" style="width: 30%;">
+                                Wavelength
+                            </div>
+                            <div class="dx-field-value" style="width: 70%;">
+                                @(Html.DevExtreme().SelectBoxFor(m => m.Wavelength)
+                                    .DataSource(d => d.Mvc().Controller("GeoNames").LoadAction("Wavelengths").Key("this"))
+                                    .Placeholder("Select Wavelength")
+                                )
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+
+                <div class="flex-container" style="text-align: right;">
+                    <div class="dx-field" style="flex-grow: 51.5; margin-left: 2px;">
+                        <div class="dx-field">
+                            <div class="dx-field-label" style="width: 21%;">
+                                Gas
+                            </div>
+                            <div class="dx-field-value" style="width: 79%;">                         
+                                @(Html.DevExtreme().SelectBoxFor(m => m.ProcessGas)
+                                    .DataSource(d => d.Mvc().Controller("GeoNames").LoadAction("ProcessGases").Key("this"))
+                                    .Placeholder("Select Process Gas")
+                                )
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dx-field" style="flex-grow: 48.5;">
+                        <div class="dx-field">
+                            <div class="dx-field-label" style="width: 30%;">
+                                Other conditions
+                            </div>
+                            <div class="dx-field-value" style="width: 70%;">
+                                @(Html.DevExtreme().TextBoxFor(m => m.OtherConditions)
+                                    .Placeholder("Other conditions")                                    
+                                )
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex-container" style="margin-left: 10%; width: 90%;">
+                    <div class="dx-field" style="flex-grow: 3;">
+                        <div class="dx-field-lable" style="width: 100%; text-align: left; margin-top: 6px;">
+                            @(Html.DevExtreme().CheckBoxFor(m => m.FixturingProvided)
+                                .ID("FixturingProvided")
+                                .Text("Fixturing provided")
+                                .Value(null)
+                                )
+                        </div>
+                    </div>
+                    <div style="flex-grow: 7;">
+                        <div class="dx-field-label" style="width: 100%; text-align: right; font-size:80%; color: dimgray;">
+                            <i></i>
+                        </div>
+                    </div>
+                </div>
+
+                <h6>Primary Concerns (Rate 1-5, 1 most important for you)</h6>
+
+                <div class="flex-container" style="text-align: right;">
+                    <div class="dx-field" style="flex-grow: 49; margin-left: -2px;">
+                        <div class="dx-field">
+                            <div class="dx-field-label" style="width: 21%;">
+                                Quality
+                            </div>
+                            <div class="dx-field-value" style="width: 79%;">                         
+                                @(Html.DevExtreme().SelectBoxFor(m => m.Quality)
+                                    .DataSource(d => d.Mvc().Controller("GeoNames").LoadAction("Rates1To5").Key("this"))
+                                    .Placeholder("Select Quality Rate")
+                                    .Hint("Rate 1-5, 1 most important for you.")
+                                )
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dx-field" style="flex-grow: 51;">
+                        <div class="dx-field">
+                            <div class="dx-field-label" style="width: 30%;">
+                                Throughput
+                            </div>
+                            <div class="dx-field-value" style="width: 70%;">                         
+                                @(Html.DevExtreme().SelectBoxFor(m => m.ProcessGas)
+                                    .DataSource(d => d.Mvc().Controller("GeoNames").LoadAction("Rates1To5").Key("this"))
+                                    .Placeholder("Select Throughput Rate")
+                                    .Hint("Rate 1-5, 1 most important for you.")
+                                )
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dx-field" style="margin-top: 0px;">
+                    <div class="dx-field-label" style="width: 100%;">
+                        Other concerns (specify)
+                    </div>
+                    <div class="full-width-content">
+                        @(Html.DevExtreme().TextAreaFor(m => m.OtherConcerns)
+                            .Placeholder("Ex: Porosity, dross, HAZ etc. and additional comments")
+                            .Height(70)
+                        )
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dx-fieldset" id="field-container" style="page-break-after: always;">
             <div class="dx-fieldset-header">Testing Follow Up</div>
             <div class="panel">
                 <div class="flex-container" style="margin-left: 10%; width: 90%;">
                     <div class="dx-field" style="flex-grow: 3;">
                         @(Html.DevExtreme().CheckBoxFor(m => m.NeedReturnCompletedSamples)
                             .ID("NeedReturnCompletedSamples")
-                            .Text("Return completed samples")
+                            .Text("Return completed Samples")
                             .Value(null)
                         )
                     </div>
                     <div class="dx-field" style="flex-grow: 3;">
                         @(Html.DevExtreme().CheckBoxFor(m => m.NeedReturnSubmittedParts)
                             .ID("NeedReturnSubmittedParts")
-                            .Text("Return all submitted parts")
+                            .Text("Return all submitted P")
                             .Value(null)
                         )
                     </div>
                     <div class="dx-field" style="flex-grow: 3;">
                         @(Html.DevExtreme().CheckBoxFor(m => m.SampleScrapUnused)
                             .ID("SampleScrapUnused")
-                            .Text("Scrap unused sample")
+                            .Text("Scrap unused Sample")
                             .Value(null)                            
                         )
                     </div>

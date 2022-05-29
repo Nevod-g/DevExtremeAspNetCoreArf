@@ -15,25 +15,43 @@ namespace DevExtremeAspNetCoreArf.Controllers.ApiControllers
         [HttpGet]
         public object Countries(DataSourceLoadOptions loadOptions)
         {
-            return DataSourceLoader.Load(SampleData.Countries, loadOptions);
-        }
-
-        [HttpGet]
-        public object Cities(DataSourceLoadOptions loadOptions)
-        {
-            return DataSourceLoader.Load(SampleData.Cities, loadOptions);
-        }
+            return DataSourceLoader.Load(DataSource.Countries, loadOptions);
+        }        
 
         [HttpGet]
         public object Opportunitys(DataSourceLoadOptions loadOptions)
         {
-            return DataSourceLoader.Load(SampleData.Opportunitys, loadOptions);
+            return DataSourceLoader.Load(DataSource.Opportunitys, loadOptions);
         }
 
         [HttpGet]
         public object ProcessTypes(DataSourceLoadOptions loadOptions)
         {
-            return DataSourceLoader.Load(SampleData.ProcessTypes, loadOptions);
+            return DataSourceLoader.Load(DataSource.ProcessTypes, loadOptions);
+        }
+
+        [HttpGet]
+        public object Lasers(DataSourceLoadOptions loadOptions)
+        {
+            return DataSourceLoader.Load(DataSource.Lasers, loadOptions);
+        }
+
+        [HttpGet]
+        public object Wavelengths(DataSourceLoadOptions loadOptions)
+        {
+            return DataSourceLoader.Load(DataSource.Wavelengths, loadOptions);
+        }
+        
+        [HttpGet]
+        public object ProcessGases(DataSourceLoadOptions loadOptions)
+        {
+            return DataSourceLoader.Load(DataSource.ProcessGases, loadOptions);
+        }
+        
+        [HttpGet]
+        public object Rates1To5(DataSourceLoadOptions loadOptions)
+        {
+            return DataSourceLoader.Load(DataSource.Rates1To5, loadOptions);
         }
     }
 }

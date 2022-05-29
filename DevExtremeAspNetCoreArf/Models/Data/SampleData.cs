@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DevExtremeAspNetCoreArf.Models.Data
 {
-    public partial class SampleData
+    public partial class DataSource
     {
         public static List<Order> Orders = new List<Order>() {
 			new Order {

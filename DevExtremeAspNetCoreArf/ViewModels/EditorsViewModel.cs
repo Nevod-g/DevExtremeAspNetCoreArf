@@ -11,7 +11,9 @@ namespace DevExtremeAspNetCoreArf.ViewModels
     {
         public bool ClassifiedOrControlled { get; set; }
         public string PartsNumber { get; set; }
+        [Required(ErrorMessage = "Determine the value of ITAR")]
         public bool ITAR { get; set; }
+        [DevExtremeRequired(ErrorMessage = "!!!You must agree to the Terms and Conditions!!!")]
         public bool ArePartsTest { get; set; }
         public bool UsedInManufacturing { get; set; }
         public bool IsNewCustomer { get; set; }
@@ -20,6 +22,7 @@ namespace DevExtremeAspNetCoreArf.ViewModels
         public bool NeedReturnCompletedSamples { get; set; }
         public bool NeedReturnSubmittedParts { get; set; }
         public bool SampleScrapUnused { get; set; }
+        public bool NoExistingProcess { get; set; }
 
         [Required(ErrorMessage = "Contact Name is required")]
         [RegularExpression(@"^[^0-9]+$", ErrorMessage = "Do not use digits in the Contact Name.")]
@@ -78,32 +81,36 @@ namespace DevExtremeAspNetCoreArf.ViewModels
         public string MaterialComments { get; set; }
         public string ShippingCompany { get; set; }
         public string AccountNumber { get; set; }
+        public string CurrentProcess { get; set; }
+        public string CurrentThroughput { get; set; }
+        [Required(ErrorMessage = "Description Reason for considering is required")]
+        public string DescriptionReasonConsidering { get; set; }
 
 
 
 
-        [Required(ErrorMessage = "Password is required")]
-        public string Password { get; set; }
+        //[Required(ErrorMessage = "Password is required")]
+        //public string Password { get; set; }
 
-        [Required(ErrorMessage = "Confirm Password is required")]
-        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "'Password' and 'Confirm Password' do not match.")]
-        public string ConfirmPassword { get; set; }
+        //[Required(ErrorMessage = "Confirm Password is required")]
+        //[System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "'Password' and 'Confirm Password' do not match.")]
+        //public string ConfirmPassword { get; set; }
 
-        public int Age { get; set; }        
+        //public int Age { get; set; }        
 
-        public IEnumerable<string> Colors { get; set; }
+        //public IEnumerable<string> Colors { get; set; }
 
-        public IEnumerable<string> SelectedColors { get; set; }
+        //public IEnumerable<string> SelectedColors { get; set; }
 
-        public string Color { get; set; }
+        //public string Color { get; set; }
 
-        [Display(Name = "Date of birth")]
-        [Required(ErrorMessage = "Date of birth is required")]
-        [VerifyAge(21, ErrorMessage = "You must be at least {1} years old")]
-        public DateTime? Date { get; set; }
+        //[Display(Name = "Date of birth")]
+        //[Required(ErrorMessage = "Date of birth is required")]
+        //[VerifyAge(21, ErrorMessage = "You must be at least {1} years old")]
+        //public DateTime? Date { get; set; }
 
-        [DevExtremeRequired(ErrorMessage = "You must agree to the Terms and Conditions")]
-        public bool Accepted { get; set; }
+        //[DevExtremeRequired(ErrorMessage = "You must agree to the Terms and Conditions")]
+        //public bool Accepted { get; set; }
 
     }
 }

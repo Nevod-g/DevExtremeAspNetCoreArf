@@ -51,10 +51,11 @@ namespace DevExtremeAspNetCoreArf.ViewModels
 
         public string PartsNumber { get; set; }
 
+        [Display(Name = "Name")]
         [Required(ErrorMessage = "Contact Name is required")]
         [RegularExpression(@"^[^0-9]+$", ErrorMessage = "Do not use digits in the Contact Name.")]
         [StringLength(int.MaxValue, MinimumLength = 2, ErrorMessage = "Name must have at least 2 symbols")]
-        public string ContactName { get; set; }
+        public string ContactName { get; set; } = "dsdfasdf";
         public string ContactTitle { get; set; }
 
         [Required(ErrorMessage = "Company Name is required")]

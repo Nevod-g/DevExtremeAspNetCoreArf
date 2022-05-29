@@ -3,94 +3,33 @@
     ViewData["Title"] = "Index";
 }
 
-<h2 style="text-align: center;">CUSTOMER APPLICATION REQUEST FORM</h2>
-    <center>
-        <i><b>
-            Please fill this form as completely as possible and send with samples. Filling this form will help speed up your processing request.
-        </b></i>
-    </center>
-<p />
-
 @model DevExtremeAspNetCoreArf.ViewModels.ArfViewModel
 
-@using(Html.BeginForm()) {
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Index</title>
+    <link rel="stylesheet" href="~/css/styles.css" type="text/css"/>      
+</head>
+
+@using(Html.BeginForm()) {    
 
     using(Html.DevExtreme().ValidationGroup()) {
 
-        @Html.AntiForgeryToken()
-        
-        @*<link rel="stylesheet" href="styles.css" type="text/css"/>*@
-        <style>
-            #summary {
-                padding-left: 10px;
-                margin-top: 20px;
-                margin-bottom: 10px;           
-            }
-
-            #ContinueButton {
-                display: block;
-                width: 30%;
-                text-align: center;
-                margin-left: auto;
-            }
-
-            .dx-fieldset:first-child > h4:first-child {
-                margin-top: 0;
-            }
-
-            #field-container > .dx-field > .dx-field-label {
-                width: 20%;
-            }
-            #field-container > .dx-field > .dx-field-value {
-                width: 80%;
-            }
-        
-            .flex-container {
-              width: 100%;  
-              display: flex;
-              flex-flow: row nowrap;
-            }
-
-            .panel {
-                padding: 15px;
-                background-color: rgba(185, 181, 181, 0.15);
-                margin-top: -15px;
-                margin-bottom: 20px;
-                border-radius: 0 15px 15px 15px;
-            }
-
-            .panel-information {
-                padding: 15px;
-                background-color: rgba(90, 190, 255, 0.30);
-                margin-top: -15px;
-                margin-bottom: 20px;
-                border-radius: 0 15px 15px 15px;
-            }
-
-            .panel-exclamation {
-                padding: 15px;
-                background-color: bisque;
-                margin-top: -15px;
-                margin-bottom: 20px;
-                border-radius: 0 15px 15px 15px;
-            }
-
-            .full-width-content {
-                width: 100%;
-                margin-top: -5px;
-            }
-
-            .full-width-content > .dx-widget {
-                width: 100%;
-                margin-bottom: 0px;
-            }
-
-            .full-width-content .dx-field {
-                width: 100%;
-                margin-top: -5px;
-            }
-        </style>
+        @Html.AntiForgeryToken()   
  
+        <h2 style="text-align: center;">CUSTOMER APPLICATION REQUEST FORM</h2>
+            <center>
+                <i><b>
+                    Please fill this form as completely as possible and send with samples. Filling this form will help speed up your processing request.
+                </b></i>
+            </center>
+        <p />
+
         <div class="dx-fieldset" id="field-container">
 
             <div class="dx-fieldset-header">Project Type</div>
@@ -187,7 +126,7 @@
                     <div class="dx-field" style="flex-grow: 4; margin-left: 2px;">
                         <div class="dx-field">
                             <div class="dx-field-label" style="width: 28%;">
-                                Name
+                                @Html.LabelFor(m => m.ContactName)
                             </div>
                             <div class="dx-field-value" style="width: 72%;">
                                 @(Html.DevExtreme().TextBoxFor(m => m.ContactName)
@@ -512,9 +451,10 @@
                 </div>
             </div>            
         </div>
-
+        
         //<div class="dx-fieldset" id="field-container" style="@(Model.NoExistingProcess ? "display:block" : "display:none")">
         <div class="dx-fieldset" id="field-container">
+        
             <div class="dx-fieldset-header" style="text-align: left;">Existing Process Description</div>
             <div class="panel">
 
@@ -856,10 +796,7 @@
             }
 
             function Button_Click(e) {
-                DevExpress.ui.notify({ message: 'The button was clicked', width: 320 }, "success", 1000);
-            }
-
-            function addButton_click() {
+                //DevExpress.ui.notify({ message: 'The button was clicked', width: 320 }, "success", 1000);
                 DevExpress.ui.notify("Test");
             }
         </script>

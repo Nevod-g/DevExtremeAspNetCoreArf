@@ -6,12 +6,12 @@ using System.Linq;
 
 namespace DevExtremeAspNetCoreArf.Controllers
 {
-    public class ValidationController : Controller
+    public class ArfController : Controller
     {
         [HttpGet]
         public ActionResult Index()
         {
-            //System.Diagnostics.Debug.WriteLine("ValidationController.Index()");
+            System.Diagnostics.Debug.WriteLine("ValidationController.Overview()");
             return View(new ArfViewModel
             {
                 ITAR = true,
@@ -19,31 +19,23 @@ namespace DevExtremeAspNetCoreArf.Controllers
             });
         }
 
-        [HttpGet]
-        public ActionResult Overview()
-        {
-            //System.Diagnostics.Debug.WriteLine("ValidationController.Overview()");
-            return View(new EditorsViewModel
-            {
-                Name = "Peter"
-            });
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Overview(EditorsViewModel userInfo)
+        public ActionResult Index(ArfViewModel arfInfo)
         {
+            System.Diagnostics.Debug.WriteLine("ValidationController.Overview(arfInfo)");
             if (ModelState.IsValid)
             {
                 return View("SuccessValidation");
             }
 
-            return View(userInfo);
+            return View(arfInfo);
         }
 
         [HttpPost]
         public JsonResult CheckEmailAddress(string email)
         {
+            System.Diagnostics.Debug.WriteLine("ValidationController.CheckEmailAddress");
             bool isValid = string.Equals(email, "test@test.com", StringComparison.OrdinalIgnoreCase);
             return Json(isValid);
         }

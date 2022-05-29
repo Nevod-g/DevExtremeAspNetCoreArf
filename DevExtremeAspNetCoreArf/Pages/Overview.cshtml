@@ -1,12 +1,12 @@
 ﻿@page
 @using DevExtreme.AspNet.Mvc
 @{
-    ViewData["Title"] = "TestValidation";
+    ViewData["Title"] = "Overview";
 }
 
 <h2>Test Validation</h2>
 
-@model DevExtremeAspNetCoreArf.ViewModels.ArfViewModel
+@model DevExtremeAspNetCoreArf.ViewModels.EditorsViewModel
 
 @using(Html.BeginForm()) {
 
@@ -25,7 +25,7 @@
                     @Html.DevExtreme().TextBoxFor(m => m.Email)
                 </div>
             </div>
-            @*<div class="dx-field">
+            <div class="dx-field">
                 <div class="dx-field-label">
                     @Html.LabelFor(m => m.Password)
                 </div>
@@ -34,8 +34,8 @@
                         .Mode(TextBoxMode.Password)
                     )
                 </div>
-            </div>*@
-            @*<div class="dx-field">
+            </div>
+            <div class="dx-field">
                 <div class="dx-field-label">
                     @Html.LabelFor(m => m.ConfirmPassword, "Confirm Password")
                 </div>
@@ -44,20 +44,19 @@
                         .Mode(TextBoxMode.Password)
                     )
                 </div>
-            </div>*@
+            </div>
         </div>
-
         <div class="dx-fieldset">
             <div class="dx-fieldset-header">Personal Data</div>
             <div class="dx-field">
                 <div class="dx-field-label">
-                    @Html.LabelFor(m => m.ContactName)
+                    @Html.LabelFor(m => m.Name)
                 </div>
                 <div class="dx-field-value">
-                    @Html.DevExtreme().TextBoxFor(m => m.ContactName)
+                    @Html.DevExtreme().TextBoxFor(m => m.Name)
                 </div>
             </div>
-            @*<div class="dx-field">
+            <div class="dx-field">
                 <div class="dx-field-label">
                     @Html.LabelFor(m => m.Date, "Date of birth")
                 </div>
@@ -66,7 +65,7 @@
                         .InvalidDateMessage("The date must have the following format: MM/dd/yyyy")
                     )
                 </div>
-            </div>*@
+            </div>
         </div>
         <div class="dx-fieldset">
             <div class="dx-fieldset-header">Billing address</div>
@@ -98,20 +97,20 @@
             </div>
             <div class="dx-field">
                 <div class="dx-field-label">
-                    @Html.LabelFor(m => m.PhoneNumber) <i>(optional)</i>
+                    @Html.LabelFor(m => m.Phone) <i>(optional)</i>
                 </div>
                 <div class="dx-field-value">
-                    @(Html.DevExtreme().TextBoxFor(m => m.PhoneNumber)
+                    @(Html.DevExtreme().TextBoxFor(m => m.Phone)
                         .Mask("+1 (X00) 000-0000")
                         .MaskRules(new { X = new JS("/[02-9]/") })
                         .MaskInvalidMessage("The phone must have a correct USA phone format")
                     )
                 </div>
             </div>
-            @*@(Html.DevExtreme().CheckBoxFor(m => m.Accepted)
+            @(Html.DevExtreme().CheckBoxFor(m => m.Accepted)
                 .ID("check")
                 .Text("I agree to the Terms and Conditions")
-            )*@
+            )
         </div>
 
         <div class="dx-fieldset">

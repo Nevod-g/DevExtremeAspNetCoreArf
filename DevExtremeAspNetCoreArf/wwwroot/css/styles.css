@@ -2,31 +2,64 @@
     padding-left: 10px;
     margin-top: 20px;
     margin-bottom: 10px;
-    /*min-height: 560px;
-    max-width: 60px;
-    margin: 0 auto;*/
 }
 
-#button {
+#ContinueButton {
     display: block;
+    width: 30%;
+    text-align: center;
+    margin-left: auto;
 }
 
 .dx-fieldset:first-child > h4:first-child {
     margin-top: 0;
 }
-
-#notes-container > .dx-field > .dx-field-label {
-    width: 20%;
-}
-
-#notes-container > .dx-field > .dx-field-value {
-    width: 80%;
-}
-
 #field-container > .dx-field > .dx-field-label {
     width: 20%;
 }
-
 #field-container > .dx-field > .dx-field-value {
     width: 80%;
+}
+
+.flex-container {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.panel {
+    padding: 15px;
+    background-color: rgba(185, 181, 181, 0.15);
+    margin-top: -15px;
+    margin-bottom: 20px;
+    border-radius: 0 15px 15px 15px;
+}
+
+.panel-information {
+    padding: 15px;
+    background-color: rgba(90, 190, 255, 0.30);
+    margin-top: -15px;
+    margin-bottom: 20px;
+    border-radius: 0 15px 15px 15px;
+}
+
+.panel-exclamation {
+    padding: 15px;
+    background-color: bisque;
+    margin-top: -15px;
+    margin-bottom: 20px;
+    border-radius: 0 15px 15px 15px;
+}
+
+.full-width-content {
+    width: 100%;
+    margin-top: -5px;
+}
+.full-width-content > .dx-widget {
+    width: 100%;
+    margin-bottom: 0px;
+}
+.full-width-content .dx-field {
+    width: 100%;
+    margin-top: -5px;
 }

@@ -9,41 +9,46 @@ namespace DevExtremeAspNetCoreArf.ViewModels
 {
     public class EditorsViewModel
     {
-        [DevExtremeRequired(ErrorMessage = "Determine the value of 'Classified/Controlled'")]
-        public bool ClassifiedOrControlled { get; set; }
-        
+		//public bool? IsNull => false;
+
+		[Display(Name = "Classified/Controlled")]
+		//[VerifyCheckBox(ErrorMessage = "Determine the value of 'Classified/Controlled'")]
+        //[Compare("IsNull", ErrorMessage = "sss111")]
+        //[Remote("VerifyCheckBox", "RemoteValidation", ErrorMessage = "Determine the value of 'Classified/Controlled'", HttpMethod = "POST")]
+        public bool? ClassifiedOrControlled { get; set; }
+ 
         [DevExtremeRequired(ErrorMessage = "Determine the value of 'ITAR'")]
-        public bool ITAR { get; set; }
+        public bool? ITAR { get; set; }
 
         [DevExtremeRequired(ErrorMessage = "Determine the value of 'Are the parts test samples/coupons'")]
-        public bool ArePartsTest { get; set; }
+        public bool? ArePartsTest { get; set; }
 
         [DevExtremeRequired(ErrorMessage = "Determine the value of 'Is this a part for use in manufacturing'")]
-        public bool UsedInManufacturing { get; set; }
+        public bool? UsedInManufacturing { get; set; }
 
         [DevExtremeRequired(ErrorMessage = "Determine the value of 'New Customer'")]
-        public bool IsNewCustomer { get; set; }
+        public bool? IsNewCustomer { get; set; }
 
         [DevExtremeRequired(ErrorMessage = "Determine the value of 'Print Attached'")]
-        public bool PrintAttached { get; set; }
+        public bool? PrintAttached { get; set; }
 
         [DevExtremeRequired(ErrorMessage = "Determine the value of 'MSDS/SDS Attached'")]
-        public bool MsdsSdsAttached { get; set; }
+        public bool? MsdsSdsAttached { get; set; }
 
         [DevExtremeRequired(ErrorMessage = "Determine the value of 'No Existing Process'")]
-        public bool NoExistingProcess { get; set; }
+        public bool? NoExistingProcess { get; set; }
 
         [DevExtremeRequired(ErrorMessage = "Determine the value of 'Fixturing Provided'")]        
-		public bool FixturingProvided { get; set; }
+		public bool? FixturingProvided { get; set; }
 		
         [DevExtremeRequired(ErrorMessage = "Determine the value of 'Return completed Samples'")]
-        public bool NeedReturnCompletedSamples { get; set; }
+        public bool? NeedReturnCompletedSamples { get; set; }
 
         [DevExtremeRequired(ErrorMessage = "Determine the value of 'Return all submitted Parts'")]
-        public bool NeedReturnSubmittedParts { get; set; }
+        public bool? NeedReturnSubmittedParts { get; set; }
 
         [DevExtremeRequired(ErrorMessage = "Determine the value of 'Scrap  unused Sample'")]
-        public bool SampleScrapUnused { get; set; }
+        public bool? SampleScrapUnused { get; set; }
 
         
 
@@ -124,7 +129,7 @@ namespace DevExtremeAspNetCoreArf.ViewModels
         //public string Password { get; set; }
 
         //[Required(ErrorMessage = "Confirm Password is required")]
-        //[System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "'Password' and 'Confirm Password' do not match.")]
+        //[Compare("Password", ErrorMessage = "'Password' and 'Confirm Password' do not match.")]
         //public string ConfirmPassword { get; set; }
 
         //public int Age { get; set; }        
@@ -141,6 +146,6 @@ namespace DevExtremeAspNetCoreArf.ViewModels
         //public DateTime? Date { get; set; }
 
         //[DevExtremeRequired(ErrorMessage = "You must agree to the Terms and Conditions")]
-        //public bool Accepted { get; set; }
+        //public bool? Accepted { get; set; }
     }
 }

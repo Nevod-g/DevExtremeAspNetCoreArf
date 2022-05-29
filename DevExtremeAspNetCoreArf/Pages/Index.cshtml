@@ -4,9 +4,11 @@
 }
 
 <h2 style="text-align: center;">CUSTOMER APPLICATION REQUEST FORM</h2>
-<center>
-<i>Please fill this form as completely as possible and send with samples. Filling this form will help speed up your processing request.</i>
-</center>
+    <center>
+        <i><b>
+            Please fill this form as completely as possible and send with samples. Filling this form will help speed up your processing request.
+        </i></b>
+    </center>
 <p />
 
 @model DevExtremeAspNetCoreArf.ViewModels.EditorsViewModel
@@ -99,6 +101,7 @@
                                     .ID("ClassifiedOrControlled")
                                     .Text("Classified/Controlled")
                                     .Value(null)
+                                    .OnValueChanged("CheckBox_OnValueChanged")                            
                                     )
                             </div>
                         </div>
@@ -796,7 +799,8 @@
                         .ID("SaveButton")
                         .Text("Save")
                         .Type(ButtonType.Default)
-                        .UseSubmitBehavior(false)
+                        //.UseSubmitBehavior(false)
+                        .OnClick("Button_Click")
                     )
                 </div>
  
@@ -810,6 +814,16 @@
                 </div>
             </div>
         </div>
+
+        <script>
+            function CheckBox_OnValueChanged(e) {
+                DevExpress.ui.notify({ message: 'Value: ' + k, width: 320 }, "success", 1000);
+            }
+
+            function Button_Click(e) {
+                DevExpress.ui.notify({ message: 'The button was clicked', width: 320 }, "success", 1000);
+            }
+        </script>
     }
 }
 <h6>Todo:</h6>
@@ -822,3 +836,4 @@
 <br>
 <br>1. как выгружать заполненные данные в JSON и загружать обратно;
 <br>2. как сформировать PDF, чтобы клиент мог распечатать ARF и отправить с образцами материалов.
+

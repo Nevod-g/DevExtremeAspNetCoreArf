@@ -32,6 +32,7 @@ namespace DevExtremeAspNetCoreArf.Controllers
         [HttpPost]
         public JsonResult CheckEmailAddress(string email)
         {
+            System.Diagnostics.Debug.WriteLine("ValidationController.CheckEmailAddress");
             bool isValid = string.Equals(email, "test@test.com", StringComparison.OrdinalIgnoreCase);
             return Json(isValid);
         }

@@ -32,7 +32,18 @@ namespace DevExtremeAspNetCoreArf.Controllers
         [HttpPost]
         public JsonResult CheckEmailAddress(string email)
         {
+            System.Diagnostics.Debug.WriteLine(email);
             bool isValid = string.Equals(email, "test@dx-email.com", StringComparison.OrdinalIgnoreCase);
+            return Json(isValid);
+        }
+
+        [HttpPost]
+        public JsonResult VerifyCheckBox(bool? classifiedOrControlled)
+        {
+            //выполняется только когда установлен флаг, значение в параметре не передаётся
+            System.Diagnostics.Debug.WriteLine("RemoteValidationController.VerifyCheckBox");
+
+            bool isValid = classifiedOrControlled != null;
             return Json(isValid);
         }
     }

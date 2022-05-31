@@ -2,21 +2,18 @@
 using DevExtreme.AspNet.Mvc;
 using DevExtremeAspNetCoreArf.Models.Data;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Linq;
-using System.Net.Http;
 
 namespace DevExtremeAspNetCoreArf.Controllers.ApiControllers
 {
 
-	[Route("api/[controller]/[action]")]
+    [Route("api/[controller]/[action]")]
     public class DataSourceController : Controller
     {
         [HttpGet]
         public object Countries(DataSourceLoadOptions loadOptions)
         {
             return DataSourceLoader.Load(DataSource.Countries, loadOptions);
-        }        
+        }
 
         [HttpGet]
         public object Opportunitys(DataSourceLoadOptions loadOptions)
@@ -41,13 +38,13 @@ namespace DevExtremeAspNetCoreArf.Controllers.ApiControllers
         {
             return DataSourceLoader.Load(DataSource.Wavelengths, loadOptions);
         }
-        
+
         [HttpGet]
         public object ProcessGases(DataSourceLoadOptions loadOptions)
         {
             return DataSourceLoader.Load(DataSource.ProcessGases, loadOptions);
         }
-        
+
         [HttpGet]
         public object Rates1To5(DataSourceLoadOptions loadOptions)
         {

@@ -1,22 +1,31 @@
-using System;
-using System.Diagnostics;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using DevExtremeAspNetCoreArf.Models;
+using DevExtremeAspNetCoreArf.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using DevExtreme.AspNet.Mvc;
-using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
 
-namespace DevExtremeAspNetCoreArf.Pages {
-    public class IndexModel : PageModel {
-        
-        public Models.Arf Arf = new();
+namespace DevExtremeAspNetCoreArf.Pages
+{
+    public class IndexModel : PageModel
+    {
+        public readonly Arf Arf = new(); //Заявка клиента
         public string ArfJsonString => JsonSerializer.Serialize(Arf);
 
-        public IActionResult OnGet() {
+        private readonly IArfRepository db;
+
+        public IndexModel(IArfRepository db)
+        {
+            this.db = db;
+        }
+
+        public IEnumerable<Arf> ArfList { get; set; }        
+
+        public IActionResult OnGet()
+        {
+            
+            ArfList = db.GetAllArf();
             return Page();
         }
 
@@ -32,16 +41,17 @@ namespace DevExtremeAspNetCoreArf.Pages {
             }
         }
 
-        public void OnGetMyOnClick() {
+        public void OnGetMyOnClick()
+        {
             Debug.Print("Hello");
         }
 
         public FileContentResult GetFile()
-        {   
+        {
             byte[] fileContent = Encoding.UTF8.GetBytes(ArfJsonString);
             string fileType = "text/json";
             string fileName = "arf.json";
-            
+
             return File(fileContent, fileType, fileName);
         }
 

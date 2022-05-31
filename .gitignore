@@ -366,3 +366,5 @@ FodyWeavers.xsd
 .vs/
 .cr/
 DevExtremeAspNetCoreArf/bin/
+DevExtremeAspNetCoreArf.Models/bin/
+DevExtremeAspNetCoreArf.Services/bin/

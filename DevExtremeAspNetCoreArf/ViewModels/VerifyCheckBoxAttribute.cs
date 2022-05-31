@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 
 namespace DevExtremeAspNetCoreArf.ViewModels
 {
@@ -19,15 +16,15 @@ namespace DevExtremeAspNetCoreArf.ViewModels
             return new ValidationResult(ErrorMessageString);
         }
 
-		void IClientModelValidator.AddValidation(ClientModelValidationContext context)
-		{
+        void IClientModelValidator.AddValidation(ClientModelValidationContext context)
+        {
             System.Diagnostics.Debug.WriteLine("VerifyCheckBoxAttribute.AddValidation");
             context.Attributes.Add("data-val-custom-verifycheckbox", ErrorMessageString);
-			context.Attributes.Add(
-				"data-val-custom-verifycheckbox-validationcallback",
-				$@"function(options) {{
+            context.Attributes.Add(
+                "data-val-custom-verifycheckbox-validationcallback",
+                $@"function(options) {{
                     return options.value && options.value != null;
                 }}");
-		}
-	}
+        }
+    }
 }

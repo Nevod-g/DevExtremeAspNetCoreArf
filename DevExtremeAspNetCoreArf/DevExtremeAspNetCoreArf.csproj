@@ -3,18 +3,23 @@
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
-        <ApplicationIcon>wwwroot\ProcessBank16.ico</ApplicationIcon>
+        <ApplicationIcon>wwwroot\lib\ProcessBank16.ico</ApplicationIcon>
     </PropertyGroup>
 
     <ItemGroup>
       <None Include="wwwroot\css\styles.css" />
-      <None Include="wwwroot\ProcessBank16.ico" />
+      <None Include="wwwroot\lib\ProcessBank16.ico" />
     </ItemGroup>
 
     <ItemGroup>
     <PackageReference Include="DevExtreme.AspNet.Data" Version="2.8.6" />
     <PackageReference Include="DevExtreme.AspNet.Core" Version="21.2.7" />
     <PackageReference Include="BuildBundlerMinifier" Version="2.9.406" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\DevExtremeAspNetCoreArf.Models\DevExtremeAspNetCoreArf.Models.csproj" />
+      <ProjectReference Include="..\DevExtremeAspNetCoreArf.Services\DevExtremeAspNetCoreArf.Services.csproj" />
     </ItemGroup>
 
     <ProjectExtensions><VisualStudio><UserProperties TemplateFeatures="NETCORE" /></VisualStudio></ProjectExtensions>

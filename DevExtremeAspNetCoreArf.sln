@@ -10,6 +10,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DevExtreme NuGet.config", "
 		NuGet.config = NuGet.config
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevExtremeAspNetCoreArf.Models", "DevExtremeAspNetCoreArf.Models\DevExtremeAspNetCoreArf.Models.csproj", "{20C6238A-4AA3-4BE8-A280-C23259E319BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevExtremeAspNetCoreArf.Services", "DevExtremeAspNetCoreArf.Services\DevExtremeAspNetCoreArf.Services.csproj", "{F0166530-ECEB-423F-8042-61F632EB85D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +24,14 @@ Global
 		{7AE1D997-2219-4255-95C2-79C5BDCC4EBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7AE1D997-2219-4255-95C2-79C5BDCC4EBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7AE1D997-2219-4255-95C2-79C5BDCC4EBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20C6238A-4AA3-4BE8-A280-C23259E319BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20C6238A-4AA3-4BE8-A280-C23259E319BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20C6238A-4AA3-4BE8-A280-C23259E319BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20C6238A-4AA3-4BE8-A280-C23259E319BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0166530-ECEB-423F-8042-61F632EB85D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0166530-ECEB-423F-8042-61F632EB85D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0166530-ECEB-423F-8042-61F632EB85D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0166530-ECEB-423F-8042-61F632EB85D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,23 +1,48 @@
 using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using DevExtremeAspNetCoreArf.ViewModels;
+using DevExtreme.AspNet.Mvc;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
+using System.Text.Json;
 
 namespace DevExtremeAspNetCoreArf.Pages {
     public class IndexModel : PageModel {
-
-        public readonly ArfViewModel Context = new ();
-
-        //public IndexModel(ArfViewModel context)
-        //{
-        //    _context = context;
-        //}
+        
+        public Models.Arf Arf = new();
+        public string ArfJsonString => JsonSerializer.Serialize(Arf);
 
         public IActionResult OnGet() {
             return Page();
+        }
+
+        public IActionResult OnPost()
+        {
+            if (ModelState.IsValid)
+            {
+                return RedirectToPage("SuccessValidation");
+            }
+            else
+            {
+                return Page();
+            }
+        }
+
+        public void OnGetMyOnClick() {
+            Debug.Print("Hello");
+        }
+
+        public FileContentResult GetFile()
+        {   
+            byte[] fileContent = Encoding.UTF8.GetBytes(ArfJsonString);
+            string fileType = "text/json";
+            string fileName = "arf.json";
+            
+            return File(fileContent, fileType, fileName);
         }
 
         // runs on the GET request

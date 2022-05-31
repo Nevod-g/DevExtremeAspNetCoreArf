@@ -10,7 +10,7 @@ namespace DevExtremeAspNetCoreArf.Controllers.ApiControllers
 {
 
 	[Route("api/[controller]/[action]")]
-    public class GeoNamesController : Controller
+    public class DataSourceController : Controller
     {
         [HttpGet]
         public object Countries(DataSourceLoadOptions loadOptions)

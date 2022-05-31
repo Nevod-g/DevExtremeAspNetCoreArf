@@ -1,10 +1,15 @@
 @page
+@model IndexModel
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Arf";
     Layout = "~/Pages/Shared/_Layout.cshtml";
-}
 
-@model DevExtremeAspNetCoreArf.Pages.IndexModel
+    @functions{
+        public void OnGetMyOnClick() {
+            System.Diagnostics.Debug.Print("Hello");
+        }
+    }
+}
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,7 +18,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Index</title>
+    <link rel="icon" href="~/ProcessBank16.ico">
     <link rel="stylesheet" href="~/css/styles.css" type="text/css"/>      
 </head>
 
@@ -21,8 +26,7 @@
 
     using(Html.DevExtreme().ValidationGroup()) {
 
-        @Html.AntiForgeryToken()   
-        @Model.Context.Address
+        @Html.AntiForgeryToken()
         <h2 style="text-align: center;">CUSTOMER APPLICATION REQUEST FORM</h2>
             <center>
                 <i><b>
@@ -38,14 +42,13 @@
                 <div class="flex-container" style="margin-left: 10%; width: 90%;">
                     <div class="dx-field" style="flex-grow: 17;">
                         <div class="dx-field">                        
-                            <div class="dx-field-lable" style="width: 100%; text-align: left; margin-top: 6px;">
-                                @(Html.DevExtreme().CheckBoxFor(m => m.Context.ClassifiedOrControlled)
+                            <div class="dx-field-lable" style="width: 100%; text-align: left; margin-top: 6px;">                               
+                                @(Html.DevExtreme().CheckBoxFor(m => m.Arf.ClassifiedOrControlled)
                                     .ID("ClassifiedOrControlled")
                                     .Text("Classified/Controlled")
                                     .Value(null)
-                                    //.IsValid(false)
-                                    //.ValidationErrors("111")
-                                    .OnValueChanged("checkBox_onValueChanged")                            
+                                    .ValidationStatus(ValidationStatus.Invalid)
+                                    //.OnValueChanged("checkBox_valueChanged")                            
                                     )
                             </div>
                         </div>
@@ -56,7 +59,7 @@
                                 Enter ECCN or USML number for parts if known:
                             </div>
                             <div class="dx-field-value" style="width: 30%;">
-                                @(Html.DevExtreme().TextBoxFor(m => m.Context.PartsNumber)
+                                @(Html.DevExtreme().TextBoxFor(m => m.Arf.PartsNumber)
                                     .Placeholder("ECCN or USML")                                    
                                 )
                             </div>
@@ -67,12 +70,13 @@
                 <div class="flex-container" style="margin-left: 10%; width: 90%;">
                     <div class="dx-field" style="flex-grow: 3;">
                         <div class="dx-field-lable" style="width: 100%; text-align: left; margin-top: 6px;">
-                            @(Html.DevExtreme().CheckBoxFor(m => m.Context.ITAR)
+                            @(Html.DevExtreme().CheckBoxFor(m => m.Arf.ITAR)
                                 .ID("ITAR")
                                 .Text("ITAR")
                                 .Value(null)
                                 .Hint("IPG Sales to Contact IPG Trade compliance officer (1149) first. Or Ext 1122 before sending parts or information to lab.")
-                                .OnValueChanged("checkBox_valueChanged")
+                                //.OnValueChanged("checkBox_valueChanged")
+                                .ValidationStatus(ValidationStatus.Invalid)
                                 )
                         </div>
                     
@@ -80,7 +84,7 @@
                             ITAR
                         </div>
                         <div class="dx-field-value" style="width: 10%; text-align: left;">
-                            @(Html.DevExtreme().CheckBoxFor(m => m.Context.ITAR)
+                            @(Html.DevExtreme().CheckBoxFor(m => m.Arf.ITAR)
                                 .ID("ITAR")
                                 .Text("")
                                 .Value(null)
@@ -100,19 +104,21 @@
             <div class="panel">
                 <div class="flex-container" style="margin-left: 10%; width: 90%;">
                     <div class="dx-field" style="flex-grow: 5;">
-                        @(Html.DevExtreme().CheckBoxFor(m => m.Context.ArePartsTest)
+                        @(Html.DevExtreme().CheckBoxFor(m => m.Arf.ArePartsTest)
                             .ID("ArePartsTest")
                             .Text("Are the parts test samples/coupons")
                             .Value(null)
                             .Hint("")
+                            .ValidationStatus(ValidationStatus.Invalid)
                         )
                     </div>
                     <div class="dx-field" style="flex-grow: 5;">
-                        @(Html.DevExtreme().CheckBoxFor(m => m.Context.UsedInManufacturing)
+                        @(Html.DevExtreme().CheckBoxFor(m => m.Arf.UsedInManufacturing)
                             .ID("UsedInManufacturing")
                             .Text("Is this a part for use in manufacturing")
                             .Value(null)
                             .Hint("If yes, provided the USML or ECCN number above.")
+                            .ValidationStatus(ValidationStatus.Invalid)
                         )
                     </div>
                 </div>
@@ -127,10 +133,10 @@
                     <div class="dx-field" style="flex-grow: 4; margin-left: 2px;">
                         <div class="dx-field">
                             <div class="dx-field-label" style="width: 28%;">
-                                @Html.LabelFor(m => m.Context.ContactName)
+                                @Html.LabelFor(m => m.Arf.ContactName)
                             </div>
                             <div class="dx-field-value" style="width: 72%;">
-                                @(Html.DevExtreme().TextBoxFor(m => m.Context.ContactName)
+                                @(Html.DevExtreme().TextBoxFor(m => m.Arf.ContactName)
                                     .Placeholder("Contact Name")
                                 )
                             </div>
@@ -142,7 +148,7 @@
                                 Phone
                             </div>
                             <div class="dx-field-value" style="width: 76%;">
-                                @(Html.DevExtreme().TextBoxFor(m => m.Context.PhoneNumber) 
+                                @(Html.DevExtreme().TextBoxFor(m => m.Arf.PhoneNumber) 
                                     .Placeholder("Phone Number")
                                 )
                             </div>
@@ -154,7 +160,7 @@
                                 Mobile
                             </div>
                             <div class="dx-field-value" style="width: 76%;">
-                                @(Html.DevExtreme().TextBoxFor(m => m.Context.MobileNumber)
+                                @(Html.DevExtreme().TextBoxFor(m => m.Arf.MobileNumber)
                                     .Mask("+0 (X00) 000-0000")
                                     .MaskRules(new { X = new JS("/[02-9]/") })
                                     .MaskInvalidMessage("The phone must have a correct phone format")
@@ -167,7 +173,7 @@
                 <div class="dx-field" style="text-align: right; margin-left: 0%; width: 100%;">
                     <div class="dx-field-label" style="width: 10%;">Title</div>
                     <div class="dx-field-value" style="width: 90%;">
-                        @(Html.DevExtreme().TextBoxFor(m => m.Context.ContactTitle)
+                        @(Html.DevExtreme().TextBoxFor(m => m.Arf.ContactTitle)
                             .Placeholder("Contact Title")
                         )
                     </div>
@@ -175,10 +181,10 @@
 
                 <div class="dx-field" style="text-align: right;">
                     <div class="dx-field-label" style="width: 10%;">
-                        @Html.LabelFor(m => m.Context.Email)
+                        @Html.LabelFor(m => m.Arf.Email)
                     </div>
                     <div class="dx-field-value" style="width: 90%;">
-                        @(Html.DevExtreme().TextBoxFor(m => m.Context.Email)
+                        @(Html.DevExtreme().TextBoxFor(m => m.Arf.Email)
                             .Placeholder("Contact Email")
                         )
                     </div>
@@ -187,17 +193,17 @@
                 <div class="dx-field" style="text-align: right; margin-left: 0%; width: 100%;">
                     <div class="dx-field-label" style="width: 10%;">Company</div>
                     <div class="dx-field-value" style="width: 90%;">
-                        @(Html.DevExtreme().TextBoxFor(m => m.Context.CompanyName)
+                        @(Html.DevExtreme().TextBoxFor(m => m.Arf.CompanyName)
                             .Placeholder("Company Name")
                         )
                     </div>
                 </div>
                 @*<div class="dx-field">
                     <div class="dx-field-label">
-                        @Html.LabelFor(m => m.Context.Date, "Date of birth")
+                        @Html.LabelFor(m => m.Arf.Date, "Date of birth")
                     </div>
                     <div class="dx-field-value">
-                        @(Html.DevExtreme().DateBoxFor(m => m.Context.Date)
+                        @(Html.DevExtreme().DateBoxFor(m => m.Arf.Date)
                             .InvalidDateMessage("The date must have the following format: MM/dd/yyyy")
                         )
                     </div>
@@ -210,7 +216,7 @@
                                 Street
                             </div>
                             <div class="dx-field-value" style="width: 72%;">
-                                @(Html.DevExtreme().TextBoxFor(m => m.Context.Street)
+                                @(Html.DevExtreme().TextBoxFor(m => m.Arf.Street)
                                     .Placeholder("Street")
                                 )
                             </div>
@@ -222,7 +228,7 @@
                                 House
                             </div>
                             <div class="dx-field-value" style="width: 76%;">
-                                @(Html.DevExtreme().TextBoxFor(m => m.Context.HouseNumber) 
+                                @(Html.DevExtreme().TextBoxFor(m => m.Arf.HouseNumber) 
                                     .Placeholder("House Number")
                                 )
                             </div>
@@ -234,7 +240,7 @@
                                 Postal
                             </div>
                             <div class="dx-field-value" style="width: 76%;">
-                                @(Html.DevExtreme().TextBoxFor(m => m.Context.PostalCode)
+                                @(Html.DevExtreme().TextBoxFor(m => m.Arf.PostalCode)
                                     .Placeholder("Postal Code")
                                 )
                             </div>
@@ -246,11 +252,11 @@
                     <div class="dx-field" style="flex-grow: 5; margin-left: -5px;">
                         <div class="dx-field">
                             <div class="dx-field-label" style="width: 20%;">
-                                @Html.LabelFor(m => m.Context.Country)
+                                @Html.LabelFor(m => m.Arf.Country)
                             </div>
                             <div class="dx-field-value" style="width: 80%;">
-                                @(Html.DevExtreme().SelectBoxFor(m => m.Context.Country)
-                                    .DataSource(d => d.Mvc().Controller("GeoNames").LoadAction("Countries").Key("this"))
+                                @(Html.DevExtreme().SelectBoxFor(m => m.Arf.Country)
+                                    .DataSource(d => d.Mvc().Controller("DataSource").LoadAction("Countries").Key("this"))
                                     .Placeholder("Select Country")
                                 )
                             </div>
@@ -259,10 +265,10 @@
                     <div class="dx-field" style="flex-grow: 5;">
                         <div class="dx-field">
                             <div class="dx-field-label" style="width: 20%;">
-                                @Html.LabelFor(m => m.Context.City)                                
+                                @Html.LabelFor(m => m.Arf.City)                                
                             </div>
                             <div class="dx-field-value" style="width: 80%;">
-                                @(Html.DevExtreme().TextBoxFor(m => m.Context.City)
+                                @(Html.DevExtreme().TextBoxFor(m => m.Arf.City)
                                     .Placeholder("Town/City")                                    
                                 )
                             </div>
@@ -275,7 +281,7 @@
                         Address
                     </div>
                     <div class="dx-field-value" style="width: 90%;">
-                        @(Html.DevExtreme().TextBoxFor(m => m.Context.Address)
+                        @(Html.DevExtreme().TextBoxFor(m => m.Arf.Address)
                             .Placeholder("Other address information")
                         )
                     </div>
@@ -291,11 +297,12 @@
                 <div class="flex-container" style="margin-left: 10%; width: 90%;">
                     <div class="dx-field" style="flex-grow: 3;">
                         <div class="dx-field-lable" style="width: 100%; text-align: left; margin-top: 6px;">
-                            @(Html.DevExtreme().CheckBoxFor(m => m.Context.IsNewCustomer)
+                            @(Html.DevExtreme().CheckBoxFor(m => m.Arf.IsNewCustomer)
                                 .ID("IsNewCustomer")
                                 .Text("New Customer")
                                 .Value(null)
                                 .Hint("If yes have Screened (Ext 1149 or 1122)")
+                                .ValidationStatus(ValidationStatus.Invalid)
                                 )
                         </div>
                     </div>
@@ -311,8 +318,8 @@
                         Opportunity
                     </div>
                     <div class="dx-field-value" style="width: 90%;">
-                        @(Html.DevExtreme().SelectBoxFor(m => m.Context.Country)
-                            .DataSource(d => d.Mvc().Controller("GeoNames").LoadAction("Opportunitys").Key("this"))
+                        @(Html.DevExtreme().SelectBoxFor(m => m.Arf.Country)
+                            .DataSource(d => d.Mvc().Controller("DataSource").LoadAction("Opportunitys").Key("this"))
                             .Placeholder("Select Opportunity")
                             .Hint("In this list includes states, provinces and territories.")
                         )
@@ -332,8 +339,8 @@
                                 Type
                             </div>
                             <div class="dx-field-value" style="width: 79%;">
-                                @(Html.DevExtreme().SelectBoxFor(m => m.Context.ProcessType)
-                                    .DataSource(d => d.Mvc().Controller("GeoNames").LoadAction("ProcessTypes").Key("this"))
+                                @(Html.DevExtreme().SelectBoxFor(m => m.Arf.ProcessType)
+                                    .DataSource(d => d.Mvc().Controller("DataSource").LoadAction("ProcessTypes").Key("this"))
                                     .Placeholder("Select Process Type")
                                 )
                             </div>
@@ -345,7 +352,7 @@
                                 Explanation
                             </div>
                             <div class="dx-field-value" style="width: 70%;">
-                                @(Html.DevExtreme().TextBoxFor(m => m.Context.OtherProcessType)
+                                @(Html.DevExtreme().TextBoxFor(m => m.Arf.OtherProcessType)
                                     .Placeholder("Please explain")                                    
                                 )
                             </div>
@@ -356,11 +363,12 @@
                 <div class="flex-container" style="margin-left: 10%; width: 90%;">
                     <div class="dx-field" style="flex-grow: 3;">
                         <div class="dx-field-lable" style="width: 100%; text-align: left; margin-top: 6px;">
-                            @(Html.DevExtreme().CheckBoxFor(m => m.Context.PrintAttached)
+                            @(Html.DevExtreme().CheckBoxFor(m => m.Arf.PrintAttached)
                                 .ID("PrintAttached")
                                 .Text("Print Attached")
                                 .Value(null)
                                 .Hint("If no print available, please provide sketch or photo.")
+                                .ValidationStatus(ValidationStatus.Invalid)
                                 )
                         </div>
                     </div>
@@ -373,10 +381,10 @@
 
                 <div class="full-width-content" style="page-break-after: always;">
                     <div class="dx-widget">
-                        @Html.LabelFor(m => m.Context.ApplicationDescription)
+                        @Html.LabelFor(m => m.Arf.ApplicationDescription)
                     </div>
                     <div class="dx-field">
-                        @(Html.DevExtreme().TextAreaFor(m => m.Context.ApplicationDescription)
+                        @(Html.DevExtreme().TextAreaFor(m => m.Arf.ApplicationDescription)
                             .ID("ApplicationDescription")
                             .Placeholder("Application Description")
                             .Height(120)
@@ -395,7 +403,7 @@
                         Material 1
                     </div>
                     <div class="dx-field-value" style="width: 90%;">
-                        @(Html.DevExtreme().TextBoxFor(m => m.Context.Material1)
+                        @(Html.DevExtreme().TextBoxFor(m => m.Arf.Material1)
                             .Placeholder("Material 1")
                         )
                     </div>
@@ -405,7 +413,7 @@
                         Description
                     </div>
                     <div class="dx-field-value" style="width: 90%;">
-                        @(Html.DevExtreme().TextAreaFor(m => m.Context.Material1Description)
+                        @(Html.DevExtreme().TextAreaFor(m => m.Arf.Material1Description)
                             .Placeholder("Description for Material 1")
                             .Height(70)
                         )
@@ -417,7 +425,7 @@
                         Material 2
                     </div>
                     <div class="dx-field-value" style="width: 90%;">
-                        @(Html.DevExtreme().TextBoxFor(m => m.Context.Material1)
+                        @(Html.DevExtreme().TextBoxFor(m => m.Arf.Material1)
                             .Placeholder("Material 2")
                         )
                     </div>
@@ -427,7 +435,7 @@
                         Description
                     </div>
                     <div class="dx-field-value" style="width: 90%;">
-                        @(Html.DevExtreme().TextAreaFor(m => m.Context.Material2Description)
+                        @(Html.DevExtreme().TextAreaFor(m => m.Arf.Material2Description)
                             .Placeholder("Description for Material 2")
                             .Height(70)
                         )
@@ -437,10 +445,11 @@
                 <div class="flex-container" style="margin-left: 10%; width: 90%;">
                     <div class="dx-field" style="flex-grow: 3;">
                         <div class="dx-field-lable" style="width: 100%; text-align: left; margin-top: 6px;">
-                            @(Html.DevExtreme().CheckBoxFor(m => m.Context.MsdsSdsAttached)
+                            @(Html.DevExtreme().CheckBoxFor(m => m.Arf.MsdsSdsAttached)
                                 .ID("MsdsSdsAttached")
                                 .Text("MSDS/SDS Attached")
                                 .Value(null)
+                                .ValidationStatus(ValidationStatus.Invalid)
                                 )
                         </div>
                     </div>
@@ -453,20 +462,21 @@
             </div>            
         </div>
         
-        //<div class="dx-fieldset" id="field-container" style="@(Model.NoExistingProcess ? "display:block" : "display:none")">
+        //<div class="dx-fieldset" id="field-container" style="@(Model.Arf.NoExistingProcess ? "display:block" : "display:none")">
+        //<div class="panel" style="@(Model.Arf.NoExistingProcess ? "" : "background-color: red;")">
         <div class="dx-fieldset" id="field-container">
         
-            <div class="dx-fieldset-header" style="text-align: left;">Existing Process Description</div>
+            <div class="dx-fieldset-header" style="text-align: left;">Existing Process Description</div>            
             <div class="panel">
 
                 <div class="flex-container" style="margin-left: 10%; width: 90%;">
                     <div class="dx-field" style="flex-grow: 3;">
                         <div class="dx-field-lable" style="width: 100%; text-align: left; margin-top: 6px;">
-                            @(Html.DevExtreme().CheckBoxFor(m => m.Context.NoExistingProcess)
+                            @(Html.DevExtreme().CheckBoxFor(m => m.Arf.NoExistingProcess)
                                 .ID("NoExistingProcess")
                                 .Text("No Existing Process")
                                 .Value(false)
-                                .OnValueChanged("noExistingProcess_checkBox_valueChanged")
+                                .OnValueChanged("noExistingProcess_checkBox_valueChanged")                                
                                 )
                         </div>
                     </div>
@@ -481,10 +491,10 @@
                     <div class="dx-field" style="flex-grow: 5; margin-left: -2px;">
                         <div class="dx-field">
                             <div class="dx-field-label" style="width: 21%;">
-                                @Html.LabelFor(m => m.Context.CurrentProcess)
+                                @Html.LabelFor(m => m.Arf.CurrentProcess)
                             </div>
                             <div class="dx-field-value" style="width: 79%;">
-                                @(Html.DevExtreme().TextBoxFor(m => m.Context.CurrentProcess)
+                                @(Html.DevExtreme().TextBoxFor(m => m.Arf.CurrentProcess)
                                     .ID("CurrentProcess")
                                     .Placeholder("Current Process")                                    
                                 )
@@ -494,10 +504,10 @@
                     <div class="dx-field" style="flex-grow: 5;">
                         <div class="dx-field">
                             <div class="dx-field-label" style="width: 30%;" id="CurrentThroughputLabel">
-                                @Html.LabelFor(m => m.Context.CurrentThroughput)
+                                @Html.LabelFor(m => m.Arf.CurrentThroughput)
                             </div>
                             <div class="dx-field-value" style="width: 70%;">
-                                @(Html.DevExtreme().TextBoxFor(m => m.Context.CurrentThroughput)
+                                @(Html.DevExtreme().TextBoxFor(m => m.Arf.CurrentThroughput)
                                     .ID("CurrentThroughput")
                                     .Placeholder("Current Throughput")                                    
                                 )
@@ -508,10 +518,10 @@
 
                 <div class="full-width-content" id="ExistingProcessSpace2">
                     <div class="dx-widget">
-                        @Html.LabelFor(m => m.Context.DescriptionReasonConsidering)
+                        @Html.LabelFor(m => m.Arf.DescriptionReasonConsidering)
                     </div>
                     <div class="dx-field">
-                        @(Html.DevExtreme().TextAreaFor(m => m.Context.DescriptionReasonConsidering)
+                        @(Html.DevExtreme().TextAreaFor(m => m.Arf.DescriptionReasonConsidering)
                             .ID("DescriptionReasonConsidering")
                             .Placeholder("Description Reason for considering")
                             .Height(120)
@@ -532,8 +542,8 @@
                                 Laser
                             </div>
                             <div class="dx-field-value" style="width: 79%;">
-                                @(Html.DevExtreme().SelectBoxFor(m => m.Context.Laser)
-                                    .DataSource(d => d.Mvc().Controller("GeoNames").LoadAction("Lasers").Key("this"))
+                                @(Html.DevExtreme().SelectBoxFor(m => m.Arf.Laser)
+                                    .DataSource(d => d.Mvc().Controller("DataSource").LoadAction("Lasers").Key("this"))
                                     .Placeholder("Select Laser")
                                 )
                             </div>
@@ -545,8 +555,8 @@
                                 Wavelength
                             </div>
                             <div class="dx-field-value" style="width: 70%;">
-                                @(Html.DevExtreme().SelectBoxFor(m => m.Context.Wavelength)
-                                    .DataSource(d => d.Mvc().Controller("GeoNames").LoadAction("Wavelengths").Key("this"))
+                                @(Html.DevExtreme().SelectBoxFor(m => m.Arf.Wavelength)
+                                    .DataSource(d => d.Mvc().Controller("DataSource").LoadAction("Wavelengths").Key("this"))
                                     .Placeholder("Select Wavelength")
                                 )
                             </div>
@@ -561,8 +571,8 @@
                                 Gas
                             </div>
                             <div class="dx-field-value" style="width: 79%;">                         
-                                @(Html.DevExtreme().SelectBoxFor(m => m.Context.ProcessGas)
-                                    .DataSource(d => d.Mvc().Controller("GeoNames").LoadAction("ProcessGases").Key("this"))
+                                @(Html.DevExtreme().SelectBoxFor(m => m.Arf.ProcessGas)
+                                    .DataSource(d => d.Mvc().Controller("DataSource").LoadAction("ProcessGases").Key("this"))
                                     .Placeholder("Select Process Gas")
                                 )
                             </div>
@@ -574,7 +584,7 @@
                                 Other conditions
                             </div>
                             <div class="dx-field-value" style="width: 70%;">
-                                @(Html.DevExtreme().TextBoxFor(m => m.Context.OtherConditions)
+                                @(Html.DevExtreme().TextBoxFor(m => m.Arf.OtherConditions)
                                     .Placeholder("Other conditions")                                    
                                 )
                             </div>
@@ -585,10 +595,11 @@
                 <div class="flex-container" style="margin-left: 10%; width: 90%;">
                     <div class="dx-field" style="flex-grow: 3;">
                         <div class="dx-field-lable" style="width: 100%; text-align: left; margin-top: 6px;">
-                            @(Html.DevExtreme().CheckBoxFor(m => m.Context.FixturingProvided)
+                            @(Html.DevExtreme().CheckBoxFor(m => m.Arf.FixturingProvided)
                                 .ID("FixturingProvided")
                                 .Text("Fixturing provided")
                                 .Value(null)
+                                .ValidationStatus(ValidationStatus.Invalid)
                                 )
                         </div>
                     </div>
@@ -608,8 +619,8 @@
                                 Quality
                             </div>
                             <div class="dx-field-value" style="width: 79%;">                         
-                                @(Html.DevExtreme().SelectBoxFor(m => m.Context.Quality)
-                                    .DataSource(d => d.Mvc().Controller("GeoNames").LoadAction("Rates1To5").Key("this"))
+                                @(Html.DevExtreme().SelectBoxFor(m => m.Arf.Quality)
+                                    .DataSource(d => d.Mvc().Controller("DataSource").LoadAction("Rates1To5").Key("this"))
                                     .Placeholder("Select Quality Rate")
                                     .Hint("Rate 1-5, 1 most important for you.")
                                 )
@@ -622,8 +633,8 @@
                                 Throughput
                             </div>
                             <div class="dx-field-value" style="width: 70%;">                         
-                                @(Html.DevExtreme().SelectBoxFor(m => m.Context.ProcessGas)
-                                    .DataSource(d => d.Mvc().Controller("GeoNames").LoadAction("Rates1To5").Key("this"))
+                                @(Html.DevExtreme().SelectBoxFor(m => m.Arf.ProcessGas)
+                                    .DataSource(d => d.Mvc().Controller("DataSource").LoadAction("Rates1To5").Key("this"))
                                     .Placeholder("Select Throughput Rate")
                                     .Hint("Rate 1-5, 1 most important for you.")
                                 )
@@ -634,10 +645,10 @@
 
                 <div class="full-width-content">
                     <div class="dx-widget">
-                        @Html.LabelFor(m => m.Context.OtherConcerns)                        
+                        @Html.LabelFor(m => m.Arf.OtherConcerns)                        
                     </div>
                     <div class="dx-field">
-                        @(Html.DevExtreme().TextAreaFor(m => m.Context.OtherConcerns)
+                        @(Html.DevExtreme().TextAreaFor(m => m.Arf.OtherConcerns)
                             .Placeholder("Ex: Porosity, dross, HAZ etc. and additional comments")
                             .Height(120)
                         )
@@ -651,24 +662,27 @@
             <div class="panel">
                 <div class="flex-container" style="margin-left: 10%; width: 90%;">
                     <div class="dx-field" style="flex-grow: 3;">
-                        @(Html.DevExtreme().CheckBoxFor(m => m.Context.NeedReturnCompletedSamples)
+                        @(Html.DevExtreme().CheckBoxFor(m => m.Arf.NeedReturnCompletedSamples)
                             .ID("NeedReturnCompletedSamples")
                             .Text("Return completed Samples")
                             .Value(null)
+                            .ValidationStatus(ValidationStatus.Invalid)
                         )
                     </div>
                     <div class="dx-field" style="flex-grow: 3;">
-                        @(Html.DevExtreme().CheckBoxFor(m => m.Context.NeedReturnSubmittedParts)
+                        @(Html.DevExtreme().CheckBoxFor(m => m.Arf.NeedReturnSubmittedParts)
                             .ID("NeedReturnSubmittedParts")
                             .Text("Return all submitted P")
                             .Value(null)
+                            .ValidationStatus(ValidationStatus.Invalid)
                         )
                     </div>
                     <div class="dx-field" style="flex-grow: 3;">
-                        @(Html.DevExtreme().CheckBoxFor(m => m.Context.SampleScrapUnused)
+                        @(Html.DevExtreme().CheckBoxFor(m => m.Arf.SampleScrapUnused)
                             .ID("SampleScrapUnused")
                             .Text("Scrap unused Sample")
-                            .Value(null)                            
+                            .Value(null)
+                            .ValidationStatus(ValidationStatus.Invalid)
                         )
                     </div>
                 </div>
@@ -680,7 +694,7 @@
                                 Shipping
                             </div>
                             <div class="dx-field-value" style="width: 80%;">
-                                @(Html.DevExtreme().TextBoxFor(m => m.Context.ShippingCompany)                                    
+                                @(Html.DevExtreme().TextBoxFor(m => m.Arf.ShippingCompany)                                    
                                     .Placeholder("Shipping Company")
                                 )
                             </div>
@@ -692,7 +706,7 @@
                                 Account
                             </div>
                             <div class="dx-field-value" style="width: 80%;">
-                                @(Html.DevExtreme().TextBoxFor(m => m.Context.AccountNumber)
+                                @(Html.DevExtreme().TextBoxFor(m => m.Arf.AccountNumber)
                                     .Placeholder("Account Number")                                    
                                 )
                             </div>
@@ -714,7 +728,7 @@
             <div class="panel">
 
                 <div class="full-width-content" style="margin-top: 0px;">
-                    @(Html.DevExtreme().TextAreaFor(m => m.Context.InternalNotes)
+                    @(Html.DevExtreme().TextAreaFor(m => m.Arf.InternalNotes)
                         .Placeholder("Internal Notes")
                         .Height(270)
                     )
@@ -741,25 +755,33 @@
 
             <div class="flex-container" style="margin-left: 0%; width: 100%;">
                 <div class="dx-field" style="flex-grow: 3;">
+
                     @(Html.DevExtreme().Button()
                         .ID("ImportButton")
                         .Text("Import Data")
+                        .Icon("import")
                         .Type(ButtonType.Normal)
                         .UseSubmitBehavior(false)
                     )
                     @(Html.DevExtreme().Button()
                         .ID("SaveButton")
                         .Text("Save")
+                        .Icon("save")
                         .Type(ButtonType.Default)
                         //.UseSubmitBehavior(false)
                         .OnClick("Button_Click")
                     )
+                    
+                    <form asp-page-handler="MyOnClick" method="post">
+                        <button class="btn btn-default">MyOnClick</button>
+                    </form>
                 </div>
  
                 <div class="dx-field" style="flex-grow: 6;">
                     @(Html.DevExtreme().Button()
                         .ID("ContinueButton")
-                        .Text("Continue")
+                        .Text("Submit")
+                        .Icon("check")
                         .Type(ButtonType.Success)
                         .UseSubmitBehavior(true)
                     )
@@ -767,48 +789,77 @@
             </div>
         </div>
 
-        <script>
-            function noExistingProcess_checkBox_valueChanged(source) {                
-                //$("#CurrentProcess").dxTextBox("instance").option("visible", source.value);
-                //$("#CurrentThroughput").dxTextBox("instance").option("visible", source.value);
-                //$("#DescriptionReasonConsidering").dxTextArea("instance").option("visible", source.value);
-                $("#CurrentProcess").dxTextBox("instance").option("disabled", source.value);
-                $("#CurrentThroughput").dxTextBox("instance").option("disabled", source.value);
-                $("#DescriptionReasonConsidering").dxTextArea("instance").option("disabled", source.value);   
-            }
-
-            function checkBox_onValueChanged(e) {
-                DevExpress.ui.notify({ message: 'Value: ' + e.value, width: 320 }, "success", 1000);
-
-                //Fails
-                //e.text = "ewrdf";
-                //e.option
-                //e.isValid = false;
-                //e.validationError
-                //e.validationErrors
-            }
-
-            function checkBox_valueChanged(data) {
-                DevExpress.ui.notify({ message: 'Value: ', width: 320 }, "normal", 1000);
-                //$("#ClassifiedOrControlled").dxCheckBox("instance").option("value", data.value);
-                //$("#ClassifiedOrControlled").dxCheckBox("instance").option("disabled", data.value);
-                $("#ClassifiedOrControlled").dxCheckBox("instance").option("isValid", data.value);
-                $("#ClassifiedOrControlled").dxCheckBox("instance").option("visible", data.value);
-            }
-
-            function Button_Click(e) {
-                //DevExpress.ui.notify({ message: 'The button was clicked', width: 320 }, "success", 1000);
-                DevExpress.ui.notify("Test");
-            }
-        </script>
+        
     }
 }
+
+<script type="text/javascript" language="javascript">
+
+    function Button_Click(e) {
+        //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
+        //DevExpress.ui.notify({ message: 'The button was clicked', width: 320 }, "success", 1000);
+        //DevExpress.ui.notify("Test");
+
+        //Получить данные из редакторов View
+        let a = ['foo', 'bar', 'baz'];
+        
+        //Сварить JSON
+        alert(JSON.stringify(a));
+        console.log("Test");
+        
+    }
+
+    function Button_Click(e) {
+        //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
+        const json = '{"result":true, "count":42}';
+        const obj = JSON.parse(json);
+
+        console.log(obj.count); // expected output: 42
+
+        console.log(obj.result); // expected output: true        
+    }
+
+    function noExistingProcess_checkBox_valueChanged(source) {                
+        //$("#CurrentProcess").dxTextBox("instance").option("visible", source.value);
+        //$("#CurrentThroughput").dxTextBox("instance").option("visible", source.value);
+        //$("#DescriptionReasonConsidering").dxTextArea("instance").option("visible", source.value);
+        $("#CurrentProcess").dxTextBox("instance").option("disabled", source.value);
+        $("#CurrentThroughput").dxTextBox("instance").option("disabled", source.value);
+        $("#DescriptionReasonConsidering").dxTextArea("instance").option("disabled", source.value);   
+    }
+
+    function checkBox_onValueChanged(e) {
+        DevExpress.ui.notify({ message: 'Value: ' + e.value, width: 320 }, "success", 1000);
+
+        //Fails
+        //e.text = "ewrdf";
+        //e.option
+        //e.isValid = false;
+        //e.validationError
+        //e.validationErrors
+    }
+
+    function checkBox_valueChanged(obj) {
+        //obj.value = true;
+        DevExpress.ui.notify({ message: 'Value: ' + obj.value, width: 320 }, "success", 1000);
+                
+        //$("#" + data.name).dxCheckBox("instance").option("isValid", data.value);
+    }
+
+    function test_checkBox_valueChanged(data) {
+        DevExpress.ui.notify({ message: 'Value: ', width: 320 }, "normal", 1000);
+        //$("#ClassifiedOrControlled").dxCheckBox("instance").option("value", data.value);
+        //$("#ClassifiedOrControlled").dxCheckBox("instance").option("disabled", data.value);
+        $("#ClassifiedOrControlled").dxCheckBox("instance").option("isValid", data.value);
+        $("#ClassifiedOrControlled").dxCheckBox("instance").option("visible", data.value);
+    }            
+</script>
+
 <h6>Todo:</h6>
-<br>Настроить валидацию (в т.ч. по флажку).
+Настроить валидацию (в т.ч. по флажку).
 <br>Обновить справочник стран.
 <br>Please explain - должен отображаться только когда требуется.
 <br>Сохранить документ в формате PDF.
-<br>Нарезать печать
 <br>Не проверять блок NoExistingProcess, если он отключен
 <br>
 <br>1. как выгружать заполненные данные в JSON и загружать обратно;

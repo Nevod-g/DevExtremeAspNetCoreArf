@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DevExtremeAspNetCoreArf.Models
 {
-    public class Order
+    public class AppsLab
     {
         public int OrderID { get; set; }
         public DateTime OrderDate { get; set; }

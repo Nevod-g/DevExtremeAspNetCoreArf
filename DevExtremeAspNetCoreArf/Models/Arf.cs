@@ -1,51 +1,49 @@
-﻿using DevExtreme.AspNet.Mvc;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 
-namespace DevExtremeAspNetCoreArf.ViewModels
+namespace DevExtremeAspNetCoreArf.Models
 {
-    public class ArfViewModel
+    public class Arf
     {
-        [Display(Name = "Classified/Controlled")]
-        //[VerifyCheckBox(ErrorMessage = "Determine the value of 'Classified/Controlled'")]
-        //[Compare("IsNull", ErrorMessage = "sss111")]
-        //[Remote("VerifyCheckBox", "RemoteValidation", ErrorMessage = "Determine the value of 'Classified/Controlled'", HttpMethod = "POST")]
-        //[Required (ErrorMessage = "Determine the value of 'Classified/Controlled'")]
-        public bool? ClassifiedOrControlled { get; set; }
+        public DateTime CreateDt { get; set; } = DateTime.Now;
 
-        [DevExtremeRequired(ErrorMessage = "Determine the value of 'ITAR'")]
+        [Display(Name = "Classified/Controlled")]
+        //[Compare(true, ErrorMessage = "sss111")]
+        [Remote("VerifyCheckBox", "Validation", ErrorMessage = "Determine the value of 'Classified/Controlled'", HttpMethod = "POST")]
+        //[Required (ErrorMessage = "Determine the value of 'Classified/Controlled'")]
+        //[Range(0, 1, ErrorMessage = "Determine the value of 'Classified/Controlled'")]
+        public bool? ClassifiedOrControlled { get; set; } = null;
+
+        [Range(0, 1, ErrorMessage = "Determine the value of 'ITAR'")]
         public bool? ITAR { get; set; }
 
-        [DevExtremeRequired(ErrorMessage = "Determine the value of 'Are the parts test samples/coupons'")]
+        [Range(0, 1, ErrorMessage = "Determine the value of 'Are the parts test samples/coupons'")]
         public bool? ArePartsTest { get; set; }
 
-        [DevExtremeRequired(ErrorMessage = "Determine the value of 'Is this a part for use in manufacturing'")]
+        [Range(0, 1, ErrorMessage = "Determine the value of 'Is this a part for use in manufacturing'")]
         public bool? UsedInManufacturing { get; set; }
 
-        [DevExtremeRequired(ErrorMessage = "Determine the value of 'New Customer'")]
+        [Range(0, 1, ErrorMessage = "Determine the value of 'New Customer'")]
         public bool? IsNewCustomer { get; set; }
 
-        [DevExtremeRequired(ErrorMessage = "Determine the value of 'Print Attached'")]
+        [Range(0, 1, ErrorMessage = "Determine the value of 'Print Attached'")]
         public bool? PrintAttached { get; set; }
 
-        [DevExtremeRequired(ErrorMessage = "Determine the value of 'MSDS/SDS Attached'")]
+        [Range(0, 1, ErrorMessage = "Determine the value of 'MSDS/SDS Attached'")]
         public bool? MsdsSdsAttached { get; set; }
 
         public bool NoExistingProcess { get; set; } = true;
 
-        [DevExtremeRequired(ErrorMessage = "Determine the value of 'Fixturing Provided'")]
+        [Range(0, 1, ErrorMessage = "Determine the value of 'Fixturing Provided'")]
         public bool? FixturingProvided { get; set; }
 
-        [DevExtremeRequired(ErrorMessage = "Determine the value of 'Return completed Samples'")]
+        [Range(0, 1, ErrorMessage = "Determine the value of 'Return completed Samples'")]
         public bool? NeedReturnCompletedSamples { get; set; }
 
-        [DevExtremeRequired(ErrorMessage = "Determine the value of 'Return all submitted Parts'")]
+        [Range(0, 1, ErrorMessage = "Determine the value of 'Return all submitted Parts'")]
         public bool? NeedReturnSubmittedParts { get; set; }
 
-        [DevExtremeRequired(ErrorMessage = "Determine the value of 'Scrap  unused Sample'")]
+        [Range(0, 1, ErrorMessage = "Determine the value of 'Scrap  unused Sample'")]
         public bool? SampleScrapUnused { get; set; }
 
 
@@ -56,7 +54,7 @@ namespace DevExtremeAspNetCoreArf.ViewModels
         [Required(ErrorMessage = "Contact Name is required")]
         [RegularExpression(@"^[^0-9]+$", ErrorMessage = "Do not use digits in the Contact Name.")]
         [StringLength(int.MaxValue, MinimumLength = 2, ErrorMessage = "Name must have at least 2 symbols")]
-        public string ContactName { get; set; } = "dsdfasdf";
+        public string ContactName { get; set; }
         public string ContactTitle { get; set; }
 
         [Required(ErrorMessage = "Company Name is required")]
@@ -70,7 +68,7 @@ namespace DevExtremeAspNetCoreArf.ViewModels
 
         [Required(ErrorMessage = "Email is required")]
         [RegularExpression(@"^[\d\w._-]+@[\d\w._-]+\.[\w]+$", ErrorMessage = "Email is invalid")]
-        [Remote("CheckEmailAddress", "RemoteValidation", ErrorMessage = "Email is already registered", HttpMethod = "POST")]
+        [Remote("CheckEmailAddress", "Validation", ErrorMessage = "Email is already registered", HttpMethod = "POST")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Country is required")]
@@ -94,7 +92,7 @@ namespace DevExtremeAspNetCoreArf.ViewModels
         [Required(ErrorMessage = "City is required")]
         [RegularExpression("^[^0-9]+$", ErrorMessage = "Do not use digits in the City name.")]
         [StringLength(int.MaxValue, MinimumLength = 2, ErrorMessage = "City must have at least 2 symbols")]
-        public string City { get; set; } = "Test City";
+        public string City { get; set; }
 
         public string Opportunity { get; set; }
 
@@ -123,7 +121,7 @@ namespace DevExtremeAspNetCoreArf.ViewModels
         public string DescriptionReasonConsidering { get; set; }
         public string Laser { get; set; }
         public string Wavelength { get; set; }
-        public string ProcessGas { get; set; }        
+        public string ProcessGas { get; set; }
         public string OtherConditions { get; set; }
         public string Quality { get; set; }
         public string Throughput { get; set; }

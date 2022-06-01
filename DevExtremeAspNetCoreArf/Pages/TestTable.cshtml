@@ -7,7 +7,7 @@
     .ShowBorders(true)
     .DataSource(d => d.Mvc().Controller("SampleData").LoadAction("Get").Key("OrderID"))
     .Columns(columns => {
-        columns.AddFor(m => m.OrderID);
+        columns.AddFor(m => m.Id);
         columns.AddFor(m => m.OrderDate);
         columns.AddFor(m => m.CustomerName);
         columns.AddFor(m => m.ShipCountry);

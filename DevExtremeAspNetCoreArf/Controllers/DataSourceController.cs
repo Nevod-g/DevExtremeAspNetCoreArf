@@ -49,6 +49,12 @@ namespace DevExtremeAspNetCoreArf.Controllers.ApiControllers
         public object Rates1To5(DataSourceLoadOptions loadOptions)
         {
             return DataSourceLoader.Load(DataSource.Rates1To5, loadOptions);
+        }        
+        
+        [HttpGet]
+        public object Languages(DataSourceLoadOptions loadOptions)
+        {
+            return DataSourceLoader.Load(DataSource.Languages, loadOptions);
         }
     }
 }

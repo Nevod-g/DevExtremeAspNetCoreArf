@@ -3,12 +3,12 @@
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
-        <ApplicationIcon>wwwroot\lib\ProcessBank16.ico</ApplicationIcon>
+        <ApplicationIcon>wwwroot\lib\icon\ProcessBank16.ico</ApplicationIcon>
     </PropertyGroup>
 
     <ItemGroup>
       <None Include="wwwroot\css\styles.css" />
-      <None Include="wwwroot\lib\ProcessBank16.ico" />
+      <None Include="wwwroot\lib\icon\ProcessBank16.ico" />
     </ItemGroup>
 
     <ItemGroup>
@@ -20,6 +20,10 @@
     <ItemGroup>
       <ProjectReference Include="..\DevExtremeAspNetCoreArf.Models\DevExtremeAspNetCoreArf.Models.csproj" />
       <ProjectReference Include="..\DevExtremeAspNetCoreArf.Services\DevExtremeAspNetCoreArf.Services.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="wwwroot\lib\images\" />
     </ItemGroup>
 
     <ProjectExtensions><VisualStudio><UserProperties TemplateFeatures="NETCORE" /></VisualStudio></ProjectExtensions>

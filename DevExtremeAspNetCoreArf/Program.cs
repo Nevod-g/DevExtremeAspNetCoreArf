@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services
     .AddRazorPages()
     .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
-builder.Services.AddSingleton<IArfRepository, MockArfRepository>();
+builder.Services.AddSingleton<IArfRepository, MockArfRepository>(); //Подружить интерфейс бибилиотеки с проектом
 
 var app = builder.Build();
 

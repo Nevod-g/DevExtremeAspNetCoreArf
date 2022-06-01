@@ -18,7 +18,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <link rel="icon" href="~/lib/ProcessBank16.ico">
+    <link rel="icon" href="~/lib/icon/ProcessBank16.ico">
     <link rel="stylesheet" href="~/css/styles.css" type="text/css"/>      
 </head>
 
@@ -35,7 +35,72 @@
             </center>
         <p />
 
+        <div class="dx-fieldset" display="block">
+            @(Html.DevExtreme().ValidationSummary()
+                .ID("summary")
+            )
+        </div>
+
         <div class="dx-fieldset" id="field-container">
+
+            <div class="flex-container" style="margin-left: 0%; width: 100%;">
+                <div class="dx-field" style="flex-grow: 3;">
+
+                    @(Html.DevExtreme().Button()
+                        .ID("ImportButtonTop")
+                        .Text("Import Data")
+                        .Icon("import")
+                        .Type(ButtonType.Normal)
+                        .UseSubmitBehavior(false)
+                        .OnClick("ImportButton_Click")
+                    )
+                    @(Html.DevExtreme().Button()
+                        .ID("SaveButtonTop")
+                        .Text("Save")
+                        .Icon("save")
+                        .Type(ButtonType.Default)
+                        .UseSubmitBehavior(false)
+                        .OnClick("SaveButton_Click")
+                    )
+                </div>
+ 
+                <div class="dx-field">
+                    <div class="dx-field" style="flex-grow: 6; margin-top: 0px;">
+                        @(Html.DevExtreme().SelectBoxFor(m => m.Arf.Language)
+                            .ID("Language")
+                            .DataSource(d => d.Mvc().Controller("DataSource").LoadAction("Languages").Key("Id"))
+                            .Placeholder("Language")
+                            //.Label("Language")
+                            //.LabelMode(EditorLabelMode.Floating)
+                            .Width(110)
+                            .ValueExpr("Id")
+                            .DisplayExpr("ShortName")
+                            .Value(0)
+                            .AcceptCustomValue(true)
+                            .FieldTemplate(@<text>
+                                <div class="custom-item">
+                                    <% if(typeof ImageSrc !== 'undefined') { %>
+                                        <img src="<%- ImageSrc %>" />
+                                    <% } %>
+                                    @(Html.DevExtreme().TextBox()
+                                        .Value(new JS("typeof ShortName !== 'undefined' && ShortName"))
+                                        .ElementAttr("class", "product-name")
+                                        .ReadOnly(true)
+                                    )
+                                </div>
+                            </text>)
+                            .ItemTemplate(@<text>
+                                <div class="custom-item">
+                                    <img src="<%- ImageSrc %>" />
+                                    <div class="product-name"><%- Name %></div>
+                                </div>
+                            </text>)
+                            //.OnValueChanged
+                            //.OnSelectionChanged()
+                        )
+                    </div>
+                </div>
+            </div>
 
             <div class="dx-fieldset-header">Project Type</div>
             <div class="panel">
@@ -47,8 +112,7 @@
                                     .ID("ClassifiedOrControlled")
                                     .Text("Classified/Controlled")
                                     .Value(null)
-                                    .ValidationStatus(ValidationStatus.Invalid)
-                                    //.OnValueChanged("checkBox_valueChanged")                            
+                                    .ValidationStatus(ValidationStatus.Invalid)                                                              
                                     )
                             </div>
                         </div>
@@ -74,8 +138,7 @@
                                 .ID("ITAR")
                                 .Text("ITAR")
                                 .Value(null)
-                                .Hint("IPG Sales to Contact IPG Trade compliance officer (1149) first. Or Ext 1122 before sending parts or information to lab.")
-                                //.OnValueChanged("checkBox_valueChanged")
+                                .Hint("IPG Sales to Contact IPG Trade compliance officer (1149) first. Or Ext 1122 before sending parts or information to lab.")                                
                                 .ValidationStatus(ValidationStatus.Invalid)
                                 )
                         </div>
@@ -476,7 +539,7 @@
                                 .ID("NoExistingProcess")
                                 .Text("No Existing Process")
                                 .Value(false)
-                                .OnValueChanged("noExistingProcess_checkBox_valueChanged")                                
+                                .OnValueChanged("NoExistingProcess_CheckBox_ValueChanged")                                
                                 )
                         </div>
                     </div>
@@ -762,19 +825,20 @@
                         .Icon("import")
                         .Type(ButtonType.Normal)
                         .UseSubmitBehavior(false)
+                        .OnClick("ImportButton_Click")
                     )
                     @(Html.DevExtreme().Button()
                         .ID("SaveButton")
                         .Text("Save")
                         .Icon("save")
                         .Type(ButtonType.Default)
-                        //.UseSubmitBehavior(false)
-                        .OnClick("Button_Click")
+                        .UseSubmitBehavior(false)
+                        .OnClick("SaveButton_Click")
                     )
                     
-                    <form asp-page-handler="MyOnClick" method="post">
+                    @*<form asp-page-handler="MyOnClick" method="post">
                         <button class="btn btn-default">MyOnClick</button>
-                    </form>
+                    </form>*@
                 </div>
  
                 <div class="dx-field" style="flex-grow: 6;">
@@ -787,15 +851,13 @@
                     )
                 </div>
             </div>
-        </div>
-
-        
+        </div>        
     }
 }
 
 <script type="text/javascript" language="javascript">
 
-    function Button_Click(e) {
+    function ImportButton_Click(e) {
         //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
         //DevExpress.ui.notify({ message: 'The button was clicked', width: 320 }, "success", 1000);
         //DevExpress.ui.notify("Test");
@@ -809,7 +871,7 @@
         
     }
 
-    function Button_Click(e) {
+    function SaveButton_Click(e) {
         //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
         const json = '{"result":true, "count":42}';
         const obj = JSON.parse(json);
@@ -819,16 +881,16 @@
         console.log(obj.result); // expected output: true        
     }
 
-    function noExistingProcess_checkBox_valueChanged(source) {                
-        //$("#CurrentProcess").dxTextBox("instance").option("visible", source.value);
-        //$("#CurrentThroughput").dxTextBox("instance").option("visible", source.value);
-        //$("#DescriptionReasonConsidering").dxTextArea("instance").option("visible", source.value);
-        $("#CurrentProcess").dxTextBox("instance").option("disabled", source.value);
-        $("#CurrentThroughput").dxTextBox("instance").option("disabled", source.value);
-        $("#DescriptionReasonConsidering").dxTextArea("instance").option("disabled", source.value);   
+    function NoExistingProcess_CheckBox_ValueChanged(e) {                
+        //$("#CurrentProcess").dxTextBox("instance").option("visible", e.value);
+        //$("#CurrentThroughput").dxTextBox("instance").option("visible", e.value);
+        //$("#DescriptionReasonConsidering").dxTextArea("instance").option("visible", e.value);
+        $("#CurrentProcess").dxTextBox("instance").option("disabled", e.value);
+        $("#CurrentThroughput").dxTextBox("instance").option("disabled", e.value);
+        $("#DescriptionReasonConsidering").dxTextArea("instance").option("disabled", e.value);   
     }
 
-    function checkBox_onValueChanged(e) {
+    function Test_ÑheckBox_ValueChanged(e) {
         DevExpress.ui.notify({ message: 'Value: ' + e.value, width: 320 }, "success", 1000);
 
         //Fails
@@ -839,19 +901,14 @@
         //e.validationErrors
     }
 
-    function checkBox_valueChanged(obj) {
+    function Test_CheckBox_ValueChanged(e) {
         //obj.value = true;
-        DevExpress.ui.notify({ message: 'Value: ' + obj.value, width: 320 }, "success", 1000);
-                
-        //$("#" + data.name).dxCheckBox("instance").option("isValid", data.value);
-    }
-
-    function test_checkBox_valueChanged(data) {
-        DevExpress.ui.notify({ message: 'Value: ', width: 320 }, "normal", 1000);
-        //$("#ClassifiedOrControlled").dxCheckBox("instance").option("value", data.value);
-        //$("#ClassifiedOrControlled").dxCheckBox("instance").option("disabled", data.value);
-        $("#ClassifiedOrControlled").dxCheckBox("instance").option("isValid", data.value);
-        $("#ClassifiedOrControlled").dxCheckBox("instance").option("visible", data.value);
+        //success, danger, normal, ÷òî-òî åù¸...
+        DevExpress.ui.notify({ message: 'Value: ' + e.value, width: 320 }, "normal", 1000);
+        //$("#ClassifiedOrControlled").dxCheckBox("instance").option("value", e.value);
+        //$("#ClassifiedOrControlled").dxCheckBox("instance").option("disabled", e.value);
+        $("#ClassifiedOrControlled").dxCheckBox("instance").option("isValid", e.value);
+        $("#ClassifiedOrControlled").dxCheckBox("instance").option("visible", e.value);
     }            
 </script>
 

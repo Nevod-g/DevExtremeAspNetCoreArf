@@ -8,6 +8,13 @@ namespace DevExtremeAspNetCoreArf.Models
         public string? Name { get; set; }
         public DateTime CreateDt { get; set; } = DateTime.Now;
 
+        [Required(ErrorMessage = "Language is required")]
+        public int Language { get; set; } = 0;
+
+        [Required(ErrorMessage = "Apps Lab is required")]
+        [Range(1, 100, ErrorMessage = "Apps Lab is required")]
+        public int AppsLab { get; set; }
+
         [Display(Name = "Classified/Controlled")]
         //[Compare(true, ErrorMessage = "sss111")]
         //[Remote("VerifyCheckBox", "Validation", ErrorMessage = "Determine the value of 'Classified/Controlled'", HttpMethod = "POST")]

@@ -2,6 +2,8 @@
 using DevExtreme.AspNet.Mvc;
 using DevExtremeAspNetCoreArf.Models.Data;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace DevExtremeAspNetCoreArf.Controllers.ApiControllers
 {
@@ -14,6 +16,17 @@ namespace DevExtremeAspNetCoreArf.Controllers.ApiControllers
         {
             return DataSourceLoader.Load(DataSource.Countries, loadOptions);
         }
+        
+        //[HttpGet]
+        //public object CountriesNames(DataSourceLoadOptions loadOptions)
+        //{
+        //    var countries = DataSourceLoader.Load(DataSource.Countries, loadOptions);
+        //    var names = countries.Select(i => new {
+        //        i.CategoryId,
+        //        i.CategoryName
+        //    });
+        //    return names;
+        //}
 
         [HttpGet]
         public object Opportunitys(DataSourceLoadOptions loadOptions)

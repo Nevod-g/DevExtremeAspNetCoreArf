@@ -9,7 +9,7 @@ namespace DevExtremeAspNetCoreArf.Pages
 {
     public class IndexModel : PageModel
     {
-        public Models.Arf Arf; //Заявка клиента
+        public Models.Arf Arf = new(); //Заявка клиента
         public string ArfJsonString => JsonSerializer.Serialize(Arf);
 
         private readonly IArfRepository arfRepository;
@@ -22,8 +22,6 @@ namespace DevExtremeAspNetCoreArf.Pages
 
         public IActionResult OnGet() // Получение от сервера
         {
-            
-
             return Page();
         }
 
@@ -46,6 +44,31 @@ namespace DevExtremeAspNetCoreArf.Pages
 
         public FileContentResult GetFile()
         {
+            Debug.Print("GetFile");
+            //string filePath = Server.MapPath;
+            byte[] fileContent = Encoding.UTF8.GetBytes(ArfJsonString);
+            string fileType = "text/json";
+            string fileName = "arf.json";
+
+            return File(fileContent, fileType, fileName);
+        }
+
+        public FileContentResult GetFileArf()
+        {
+            Debug.Print("GetFileArf");
+            //string filePath = Server.MapPath;
+            byte[] fileContent = Encoding.UTF8.GetBytes(ArfJsonString);
+            string fileType = "text/json";
+            string fileName = "arf.json";
+
+            return File(fileContent, fileType, fileName);
+        }
+
+        public FileContentResult OnPostDownloadArfJson(Models.Arf arf)
+        {
+            Debug.Print(arf.CompanyName);
+            this.Arf = arfRepository.Update(arf);            
+
             byte[] fileContent = Encoding.UTF8.GetBytes(ArfJsonString);
             string fileType = "text/json";
             string fileName = "arf.json";
@@ -56,7 +79,8 @@ namespace DevExtremeAspNetCoreArf.Pages
         // runs on the GET request
         //public IActionResult OnGetGridData(DataSourceLoadOptions loadOptions)
         //{
-        //    var categories = _context.Categories.Select(i => new {
+        //    var categories = _context.Categories.Select(i => new
+        //    {
         //        i.CategoryId,
         //        i.CategoryName
         //    });
@@ -91,5 +115,7 @@ namespace DevExtremeAspNetCoreArf.Pages
         //        model.CategoryName = Convert.ToString(values["CategoryName"]);
         //    }
         //}
+
+        
     }
 }

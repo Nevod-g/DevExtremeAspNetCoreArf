@@ -40,7 +40,7 @@ namespace DevExtremeAspNetCoreArf.Models
         [Range(0, 1, ErrorMessage = "Determine the value of 'MSDS/SDS Attached'")]
         public bool? MsdsSdsAttached { get; set; }
 
-        public bool NoExistingProcess { get; set; } = true;
+        public bool NoExistingProcess { get; set; } = false;
 
         [Range(0, 1, ErrorMessage = "Determine the value of 'Fixturing Provided'")]
         public bool? FixturingProvided { get; set; }
@@ -71,7 +71,7 @@ namespace DevExtremeAspNetCoreArf.Models
         public string? CompanyName { get; set; }
 
         public string? PhoneNumber { get; set; }
-        [RegularExpression(@"^[02-9]\d{9}$", ErrorMessage = "The phone must have a correct phone format")]
+        [RegularExpression(@"^[0-9]+$", ErrorMessage = "The phone must have a correct phone format")]
         public string? MobileNumber { get; set; }
 
         [Required(ErrorMessage = "Email is required")]

@@ -29,7 +29,7 @@ namespace DevExtremeAspNetCoreArf.Services
 
         public Arf Update(Arf arf)
         {
-            throw new NotImplementedException();
+            return arf;
         }
     }
 }

@@ -5,11 +5,9 @@
     ViewData["Title"] = "Arf";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 
-    Model.Arf = new();    
-    //Model.Arf.ContactTitle = "Test";
     //var dirPath = $"/images/{Arf.Address ?? "nopath"}";
 }
-@*<h1>ArfList.Count = @Model.ArfList.Count()</h1>*@
+
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
@@ -21,7 +19,15 @@
     <link rel="stylesheet" href="~/css/styles.css" type="text/css"/>
 </head>
 
-@using(Html.BeginForm()) {    
+@*@Html.ActionLink("Description", "GetFileArf", "Index")
+<a href="@Url.Page("Index", "GetFileArf")">Download</a>*@
+
+ <form asp-page-handler="DownloadArfJson" method="post" >    
+    <button class="btn btn-outline-dark btn-sm">Import Data</button>
+    <button class="btn btn-outline-primary btn-sm">Save</button>
+</form>
+
+@using(Html.BeginForm()) {
 
     using(Html.DevExtreme().ValidationGroup()) {
 
@@ -44,7 +50,7 @@
                         .Text("Import Data")
                         .Icon("import")
                         .Type(ButtonType.Normal)
-                        .UseSubmitBehavior(false)
+                        .UseSubmitBehavior(true)
                         .OnClick("ImportButton_Click")
                     )
                     @(Html.DevExtreme().Button()
@@ -68,7 +74,6 @@
                             .Width(110)
                             .ValueExpr("Id")
                             .DisplayExpr("ShortName")
-                            .Value(0)
                             .AcceptCustomValue(true)
                             .FieldTemplate(@<text>
                                 <div class="custom-item">
@@ -102,9 +107,8 @@
                             <div class="dx-field-lable" style="width: 100%; text-align: left; margin-top: 6px;">                               
                                 @(Html.DevExtreme().CheckBoxFor(m => m.Arf.ClassifiedOrControlled)
                                     .ID("ClassifiedOrControlled")
-                                    .Text("Classified/Controlled")
-                                    .Value(null)
-                                    .ValidationStatus(ValidationStatus.Invalid)                                                              
+                                    .Text("Classified/Controlled")                                    
+                                    .ValidationStatus(Model.Arf.ClassifiedOrControlled == null ? ValidationStatus.Invalid : ValidationStatus.Valid)                                                            
                                     )
                             </div>
                         </div>
@@ -129,23 +133,10 @@
                             @(Html.DevExtreme().CheckBoxFor(m => m.Arf.ITAR)
                                 .ID("ITAR")
                                 .Text("ITAR")
-                                .Value(null)
                                 .Hint("IPG Sales to Contact IPG Trade compliance officer (1149) first. Or Ext 1122 before sending parts or information to lab.")                                
-                                .ValidationStatus(ValidationStatus.Invalid)
+                                .ValidationStatus(Model.Arf.ITAR == null ? ValidationStatus.Invalid : ValidationStatus.Valid)
                                 )
-                        </div>
-                    
-                        @*<div class="dx-field-label" style="width: 90%;">
-                            ITAR
-                        </div>
-                        <div class="dx-field-value" style="width: 10%; text-align: left;">
-                            @(Html.DevExtreme().CheckBoxFor(m => m.Arf.ITAR)
-                                .ID("ITAR")
-                                .Text("")
-                                .Value(null)
-                                .Hint("IPG Sales to Contact IPG Trade compliance officer (1149) first. Or Ext 1122 before sending parts or information to lab.")
-                            )
-                        </div>*@
+                        </div>                    
                     </div>
                     <div style="flex-grow: 7;">
                         <div class="dx-field-label" style="width: 100%; text-align: right; font-size:80%; color: dimgray;">
@@ -162,18 +153,16 @@
                         @(Html.DevExtreme().CheckBoxFor(m => m.Arf.ArePartsTest)
                             .ID("ArePartsTest")
                             .Text("Are the parts test samples/coupons")
-                            .Value(null)
                             .Hint("")
-                            .ValidationStatus(ValidationStatus.Invalid)
+                            .ValidationStatus(Model.Arf.ArePartsTest == null ? ValidationStatus.Invalid : ValidationStatus.Valid)
                         )
                     </div>
                     <div class="dx-field" style="flex-grow: 5;">
                         @(Html.DevExtreme().CheckBoxFor(m => m.Arf.UsedInManufacturing)
                             .ID("UsedInManufacturing")
                             .Text("Is this a part for use in manufacturing")
-                            .Value(null)
                             .Hint("If yes, provided the USML or ECCN number above.")
-                            .ValidationStatus(ValidationStatus.Invalid)
+                            .ValidationStatus(Model.Arf.UsedInManufacturing == null ? ValidationStatus.Invalid : ValidationStatus.Valid)
                         )
                     </div>
                 </div>
@@ -253,16 +242,6 @@
                         )
                     </div>
                 </div>
-                @*<div class="dx-field">
-                    <div class="dx-field-label">
-                        @Html.LabelFor(m => m.Arf.Date, "Date of birth")
-                    </div>
-                    <div class="dx-field-value">
-                        @(Html.DevExtreme().DateBoxFor(m => m.Arf.Date)
-                            .InvalidDateMessage("The date must have the following format: MM/dd/yyyy")
-                        )
-                    </div>
-                </div>*@
 
                 <div class="flex-container" style="text-align: right;">
                     <div class="dx-field" style="flex-grow: 4; margin-left: 2px;">
@@ -355,9 +334,8 @@
                             @(Html.DevExtreme().CheckBoxFor(m => m.Arf.IsNewCustomer)
                                 .ID("IsNewCustomer")
                                 .Text("New Customer")
-                                .Value(null)
                                 .Hint("If yes have Screened (Ext 1149 or 1122)")
-                                .ValidationStatus(ValidationStatus.Invalid)
+                                .ValidationStatus(Model.Arf.IsNewCustomer == null ? ValidationStatus.Invalid : ValidationStatus.Valid)
                                 )
                         </div>
                     </div>
@@ -421,9 +399,8 @@
                             @(Html.DevExtreme().CheckBoxFor(m => m.Arf.PrintAttached)
                                 .ID("PrintAttached")
                                 .Text("Print Attached")
-                                .Value(null)
                                 .Hint("If no print available, please provide sketch or photo.")
-                                .ValidationStatus(ValidationStatus.Invalid)
+                                .ValidationStatus(Model.Arf.PrintAttached == null ? ValidationStatus.Invalid : ValidationStatus.Valid)
                                 )
                         </div>
                     </div>
@@ -503,8 +480,7 @@
                             @(Html.DevExtreme().CheckBoxFor(m => m.Arf.MsdsSdsAttached)
                                 .ID("MsdsSdsAttached")
                                 .Text("MSDS/SDS Attached")
-                                .Value(null)
-                                .ValidationStatus(ValidationStatus.Invalid)
+                                .ValidationStatus(Model.Arf.MsdsSdsAttached == null ? ValidationStatus.Invalid : ValidationStatus.Valid)
                                 )
                         </div>
                     </div>
@@ -516,11 +492,10 @@
                 </div>
             </div>            
         </div>
-        
-        //<div class="dx-fieldset" id="field-container" style="@(Model.Arf.NoExistingProcess ? "display:block" : "display:none")">
-        //<div class="panel" style="@(Model.Arf.NoExistingProcess ? "" : "background-color: red;")">
+
+        //<div class="full-width-content" id="ExistingProcessSpace2" style="@(Model.Arf.NoExistingProcess ? "display:block;" : "display:none;")">
         <div class="dx-fieldset" id="field-container">
-        
+            
             <div class="dx-fieldset-header" style="text-align: left;">Existing Process Description</div>            
             <div class="panel">
 
@@ -530,8 +505,8 @@
                             @(Html.DevExtreme().CheckBoxFor(m => m.Arf.NoExistingProcess)
                                 .ID("NoExistingProcess")
                                 .Text("No Existing Process")
-                                .Value(false)
-                                .OnValueChanged("NoExistingProcess_CheckBox_ValueChanged")                                
+                                .OnValueChanged("NoExistingProcess_CheckBox_ValueChanged")  
+                                .Value(@Model.Arf.NoExistingProcess)
                                 )
                         </div>
                     </div>
@@ -653,8 +628,7 @@
                             @(Html.DevExtreme().CheckBoxFor(m => m.Arf.FixturingProvided)
                                 .ID("FixturingProvided")
                                 .Text("Fixturing provided")
-                                .Value(null)
-                                .ValidationStatus(ValidationStatus.Invalid)
+                                .ValidationStatus(Model.Arf.FixturingProvided == null ? ValidationStatus.Invalid : ValidationStatus.Valid)
                                 )
                         </div>
                     </div>
@@ -720,24 +694,21 @@
                         @(Html.DevExtreme().CheckBoxFor(m => m.Arf.NeedReturnCompletedSamples)
                             .ID("NeedReturnCompletedSamples")
                             .Text("Return completed Samples")
-                            .Value(null)
-                            .ValidationStatus(ValidationStatus.Invalid)
+                            .ValidationStatus(Model.Arf.NeedReturnCompletedSamples == null ? ValidationStatus.Invalid : ValidationStatus.Valid)
                         )
                     </div>
                     <div class="dx-field" style="flex-grow: 3;">
                         @(Html.DevExtreme().CheckBoxFor(m => m.Arf.NeedReturnSubmittedParts)
                             .ID("NeedReturnSubmittedParts")
                             .Text("Return all submitted P")
-                            .Value(null)
-                            .ValidationStatus(ValidationStatus.Invalid)
+                            .ValidationStatus(Model.Arf.NeedReturnSubmittedParts == null ? ValidationStatus.Invalid : ValidationStatus.Valid)
                         )
                     </div>
                     <div class="dx-field" style="flex-grow: 3;">
                         @(Html.DevExtreme().CheckBoxFor(m => m.Arf.SampleScrapUnused)
                             .ID("SampleScrapUnused")
                             .Text("Scrap unused Sample")
-                            .Value(null)
-                            .ValidationStatus(ValidationStatus.Invalid)
+                            .ValidationStatus(Model.Arf.SampleScrapUnused == null ? ValidationStatus.Invalid : ValidationStatus.Valid)
                         )
                     </div>
                 </div>
@@ -816,7 +787,7 @@
                         .Text("Import Data")
                         .Icon("import")
                         .Type(ButtonType.Normal)
-                        .UseSubmitBehavior(false)
+                        .UseSubmitBehavior(true)
                         .OnClick("ImportButton_Click")
                     )
                     @(Html.DevExtreme().Button()
@@ -827,10 +798,6 @@
                         .UseSubmitBehavior(false)
                         .OnClick("SaveButton_Click")
                     )
-                    
-                    @*<form asp-page-handler="MyOnClick" method="post">
-                        <button class="btn btn-default">MyOnClick</button>
-                    </form>*@
                 </div>
  
                 <div class="dx-field" style="flex-grow: 6;">
@@ -849,7 +816,8 @@
 }
 
 <script type="text/javascript" language="javascript">
-    
+    var arf = @Html.Raw(Json.Serialize(Model.Arf));
+
     function Language_ValueChanged(e) {
         var href = "http://" + window.location.host;
         switch (e.value) {
@@ -873,14 +841,8 @@
 
     function ImportButton_Click(e) {
         //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
-        //DevExpress.ui.notify({ message: 'The button was clicked', width: 320 }, "success", 1000);
-        
-        //Получить данные из редакторов View
-       
-
-        //Сварить JSON
-        //alert(JSON.stringify(document));
-        $("#ApplicationDescription").dxTextArea("instance").option("value", JSON.stringify(document));
+        DevExpress.ui.notify({ message: 'ImportButton_Click', width: 320 }, "success", 1000);
+        $("#ApplicationDescription").dxTextArea("instance").option("value", JSON.stringify(arf));
     }
 
     function SaveButton_Click(e) {
@@ -898,8 +860,9 @@
     }
 
     function Test_СheckBox_ValueChanged(e) {
-        DevExpress.ui.notify({ message: 'Value: ' + e.value, width: 320 }, "success", 1000);
-
+        //DevExpress.ui.notify({ message: 'Value: ' + e.value, width: 320 }, "success", 1000);
+        var buttonText = e.component.option("text");
+        DevExpress.ui.notify("The " + buttonText + " button was clicked");
         //Fails
         //e.text = "ewrdf";
         //e.option

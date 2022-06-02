@@ -6,7 +6,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services
     .AddRazorPages()
     .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
-builder.Services.AddSingleton<IArfRepository, MockArfRepository>(); //Подружить интерфейс бибилиотеки с проектом
+
+builder.Services.AddSingleton<IArfRepository, MockArfRepository>(); // Подружить интерфейс бибилиотеки с проектом
+
+builder.Services.Configure<RouteOptions>( // Конфигурировать Url
+    options =>
+    {
+        options.LowercaseUrls = true;
+        options.LowercaseQueryStrings = true;
+        options.AppendTrailingSlash = true;
+    });
 
 var app = builder.Build();
 

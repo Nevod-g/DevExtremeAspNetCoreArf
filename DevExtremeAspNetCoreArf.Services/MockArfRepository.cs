@@ -4,7 +4,7 @@ namespace DevExtremeAspNetCoreArf.Services
 {
     public class MockArfRepository : IArfRepository
     {
-        private List<Arf> arfList;
+        private readonly List<Arf> arfList;
 
         public MockArfRepository()
         {
@@ -17,9 +17,19 @@ namespace DevExtremeAspNetCoreArf.Services
             };
         }
 
-        public IEnumerable<Arf> GetAllArf()
+        public IEnumerable<Arf> GetAll()
         {
             return arfList;
+        }
+
+        public Arf Get(int id)
+        {
+            return arfList.FirstOrDefault(a => a.Id == id);
+        }
+
+        public Arf Update(Arf arf)
+        {
+            throw new NotImplementedException();
         }
     }
 }

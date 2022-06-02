@@ -19,7 +19,7 @@ namespace DevExtremeAspNetCoreArf.Models
         //[Compare(true, ErrorMessage = "sss111")]
         //[Remote("VerifyCheckBox", "Validation", ErrorMessage = "Determine the value of 'Classified/Controlled'", HttpMethod = "POST")]
         //[Required (ErrorMessage = "Determine the value of 'Classified/Controlled'")]
-        //[Range(0, 1, ErrorMessage = "Determine the value of 'Classified/Controlled'")]
+        [Range(0, 1, ErrorMessage = "Determine the value of 'Classified/Controlled'")]
         public bool? ClassifiedOrControlled { get; set; }
 
         [Range(0, 1, ErrorMessage = "Determine the value of 'ITAR'")]
@@ -66,7 +66,7 @@ namespace DevExtremeAspNetCoreArf.Models
         public string? ContactTitle { get; set; }
 
         [Required(ErrorMessage = "Company Name is required")]
-        [RegularExpression(@"^[^0-9]+$", ErrorMessage = "Do not use digits in the Company Name.")]
+        //[RegularExpression(@"^[^0-9]+$", ErrorMessage = "Do not use digits in the Company Name.")]
         [StringLength(int.MaxValue, MinimumLength = 2, ErrorMessage = "Name must have at least 2 symbols")]
         public string? CompanyName { get; set; }
 
@@ -102,6 +102,7 @@ namespace DevExtremeAspNetCoreArf.Models
         [StringLength(int.MaxValue, MinimumLength = 2, ErrorMessage = "City must have at least 2 symbols")]
         public string? City { get; set; }
 
+        [Required(ErrorMessage = "Opportunity is required")]
         public string? Opportunity { get; set; }
 
         [Required(ErrorMessage = "Process Type is required")]

@@ -4,9 +4,9 @@
     margin-bottom: 10px;
 }
 
-#ContinueButton {
+#submit-button {
     display: block;
-    width: 30%;
+    width: 160px;
     text-align: center;
     margin-left: auto;
 }

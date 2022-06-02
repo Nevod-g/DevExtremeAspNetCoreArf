@@ -19,10 +19,11 @@
     <script src="~/js/vendor.js" asp-append-version="true"></script>
 </head>
 
-<body style="padding-top: 5rem;">
+<body style="padding-top: 0rem;">
 
-    <nav class="navbar navbar-dark bg-dark fixed-top navbar-expand-md">
-        <a class="navbar-brand" href="/">IPG</a>
+    <nav class="navbar navbar-dark bg-dark @*fixed-top*@ navbar-expand-md" style="margin-top: 0px; line-height: 6px">
+        <img src="~/lib/icon/ProcessBank16.ico" />
+        <a class="navbar-brand" style="margin-left: 2px;" href="/">IPG</a>
 
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="navbar-toggler-icon"></span>
@@ -31,8 +32,8 @@
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
                 <li class="active nav-item"><a href="/" class="nav-link">Application Request Form</a></li>
-                @*<li class="nav-item"><a href="/TestCard" class="nav-link">Test Card</a></li>
-                <li class="nav-item"><a href="/TestTable" class="nav-link">Test Table</a></li>*@
+                <li class="nav-item"><a asp-page="/TestCard" class="nav-link">Test Card</a></li>
+                @*<li class="nav-item"><a href="/TestTable" class="nav-link">Test Table</a></li>*@
                 <li class="nav-item">
                     <a class="nav-link" href="https://www.ipgphotonics.com/en/privacy">Privacy</a>
                 </li>

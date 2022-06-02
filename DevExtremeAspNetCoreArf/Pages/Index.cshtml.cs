@@ -1,4 +1,3 @@
-using DevExtremeAspNetCoreArf.Models;
 using DevExtremeAspNetCoreArf.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -10,40 +9,39 @@ namespace DevExtremeAspNetCoreArf.Pages
 {
     public class IndexModel : PageModel
     {
-        public readonly Arf Arf = new(); //Заявка клиента
+        public Models.Arf Arf; //Заявка клиента
         public string ArfJsonString => JsonSerializer.Serialize(Arf);
 
-        private readonly IArfRepository db;
+        private readonly IArfRepository arfRepository;
 
-        public IndexModel(IArfRepository db)
+        public IndexModel(IArfRepository arfRepository)
         {
-            this.db = db;
+            this.arfRepository = arfRepository;
+            //Arf = arfRepository.GetArf(2);
         }
 
-        public IEnumerable<Arf> ArfList { get; set; }        
-
-        public IActionResult OnGet()
+        public IActionResult OnGet() // Получение от сервера
         {
             
-            ArfList = db.GetAllArf();
+
             return Page();
         }
 
-        public IActionResult OnPost()
+        public IActionResult OnPost(Models.Arf arf) // Отправка на сервер
         {
-            if (ModelState.IsValid)
-            {
-                return RedirectToPage("SuccessValidation");
-            }
-            else
-            {
-                return Page();
-            }
-        }
+            this.Arf = arfRepository.Update(arf);
 
-        public void OnGetMyOnClick()
-        {
-            Debug.Print("Hello");
+            Debug.Print(Arf.CompanyName);
+            //return RedirectToPage("SuccessValidation");
+            //if (ModelState.IsValid)
+            //{
+            //    return RedirectToPage("SuccessValidation");
+            //}
+            //else
+            //{
+            //    return Page();
+            //}
+            return Page();
         }
 
         public FileContentResult GetFile()

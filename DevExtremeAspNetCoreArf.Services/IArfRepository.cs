@@ -4,6 +4,8 @@ namespace DevExtremeAspNetCoreArf.Services
 {
     public interface IArfRepository
     {
-        IEnumerable<Arf> GetAllArf();
+        IEnumerable<Arf> GetAll();
+        Arf Get(int id);
+        Arf Update(Arf arf);
     }
 }

@@ -1,14 +1,13 @@
+@*@page "{id}" скрыть параметр в строке*@
 @page
 @model IndexModel
 @{
     ViewData["Title"] = "Arf";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 
-    @functions{
-        public void OnGetMyOnClick() {
-            System.Diagnostics.Debug.Print("Hello");
-        }
-    }
+    Model.Arf = new();    
+    //Model.Arf.ContactTitle = "Test";
+    //var dirPath = $"/images/{Arf.Address ?? "nopath"}";
 }
 @*<h1>ArfList.Count = @Model.ArfList.Count()</h1>*@
 <head>
@@ -19,7 +18,7 @@
     <meta name="author" content="">
 
     <link rel="icon" href="~/lib/icon/ProcessBank16.ico">
-    <link rel="stylesheet" href="~/css/styles.css" type="text/css"/>      
+    <link rel="stylesheet" href="~/css/styles.css" type="text/css"/>
 </head>
 
 @using(Html.BeginForm()) {    
@@ -33,13 +32,7 @@
                     Please fill this form as completely as possible and send with samples. Filling this form will help speed up your processing request.
                 </b></i>
             </center>
-        <p />
-
-        <div class="dx-fieldset" display="block">
-            @(Html.DevExtreme().ValidationSummary()
-                .ID("summary")
-            )
-        </div>
+        <p />        
 
         <div class="dx-fieldset" id="field-container">
 
@@ -47,7 +40,7 @@
                 <div class="dx-field" style="flex-grow: 3;">
 
                     @(Html.DevExtreme().Button()
-                        .ID("ImportButtonTop")
+                        .ID("import-button-top")
                         .Text("Import Data")
                         .Icon("import")
                         .Type(ButtonType.Normal)
@@ -55,7 +48,7 @@
                         .OnClick("ImportButton_Click")
                     )
                     @(Html.DevExtreme().Button()
-                        .ID("SaveButtonTop")
+                        .ID("save-button-top")
                         .Text("Save")
                         .Icon("save")
                         .Type(ButtonType.Default)
@@ -95,8 +88,7 @@
                                     <div class="product-name"><%- Name %></div>
                                 </div>
                             </text>)
-                            //.OnValueChanged
-                            //.OnSelectionChanged()
+                            .OnValueChanged("Language_ValueChanged")
                         )
                     </div>
                 </div>
@@ -381,7 +373,7 @@
                         Opportunity
                     </div>
                     <div class="dx-field-value" style="width: 90%;">
-                        @(Html.DevExtreme().SelectBoxFor(m => m.Arf.Country)
+                        @(Html.DevExtreme().SelectBoxFor(m => m.Arf.Opportunity)
                             .DataSource(d => d.Mvc().Controller("DataSource").LoadAction("Opportunitys").Key("this"))
                             .Placeholder("Select Opportunity")
                             .Hint("In this list includes states, provinces and territories.")
@@ -820,7 +812,7 @@
                 <div class="dx-field" style="flex-grow: 3;">
 
                     @(Html.DevExtreme().Button()
-                        .ID("ImportButton")
+                        .ID("import-button")
                         .Text("Import Data")
                         .Icon("import")
                         .Type(ButtonType.Normal)
@@ -828,7 +820,7 @@
                         .OnClick("ImportButton_Click")
                     )
                     @(Html.DevExtreme().Button()
-                        .ID("SaveButton")
+                        .ID("save-button")
                         .Text("Save")
                         .Icon("save")
                         .Type(ButtonType.Default)
@@ -843,11 +835,12 @@
  
                 <div class="dx-field" style="flex-grow: 6;">
                     @(Html.DevExtreme().Button()
-                        .ID("ContinueButton")
+                        .ID("submit-button")
                         .Text("Submit")
                         .Icon("check")
                         .Type(ButtonType.Success)
                         .UseSubmitBehavior(true)
+                        //.OnClick("SubmitButton_Click")
                     )
                 </div>
             </div>
@@ -856,19 +849,38 @@
 }
 
 <script type="text/javascript" language="javascript">
+    
+    function Language_ValueChanged(e) {
+        var href = "http://" + window.location.host;
+        switch (e.value) {
+            case 1: href += "/Arf/ArfDe"; break;
+            case 2: href += "/Arf/ArfRu"; break;
+            case 3: href += "/Arf/ArfCh"; break;
+            case 4: href += "/Arf/ArfIt"; break;
+            case 5: href += "/Arf/ArfJa"; break;         
+        }
+        window.location.assign(href.toLowerCase()); // сохраняется в истории сеансов
+    }
+    
+    function NoExistingProcess_CheckBox_ValueChanged(e) {                
+        //$("#CurrentProcess").dxTextBox("instance").option("visible", e.value);
+        //$("#CurrentThroughput").dxTextBox("instance").option("visible", e.value);
+        //$("#DescriptionReasonConsidering").dxTextArea("instance").option("visible", e.value);
+        $("#CurrentProcess").dxTextBox("instance").option("disabled", e.value);
+        $("#CurrentThroughput").dxTextBox("instance").option("disabled", e.value);
+        $("#DescriptionReasonConsidering").dxTextArea("instance").option("disabled", e.value);   
+    }
 
     function ImportButton_Click(e) {
         //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
         //DevExpress.ui.notify({ message: 'The button was clicked', width: 320 }, "success", 1000);
-        //DevExpress.ui.notify("Test");
-
+        
         //Получить данные из редакторов View
-        let a = ['foo', 'bar', 'baz'];
-        
+       
+
         //Сварить JSON
-        alert(JSON.stringify(a));
-        console.log("Test");
-        
+        //alert(JSON.stringify(document));
+        $("#ApplicationDescription").dxTextArea("instance").option("value", JSON.stringify(document));
     }
 
     function SaveButton_Click(e) {
@@ -881,13 +893,8 @@
         console.log(obj.result); // expected output: true        
     }
 
-    function NoExistingProcess_CheckBox_ValueChanged(e) {                
-        //$("#CurrentProcess").dxTextBox("instance").option("visible", e.value);
-        //$("#CurrentThroughput").dxTextBox("instance").option("visible", e.value);
-        //$("#DescriptionReasonConsidering").dxTextArea("instance").option("visible", e.value);
-        $("#CurrentProcess").dxTextBox("instance").option("disabled", e.value);
-        $("#CurrentThroughput").dxTextBox("instance").option("disabled", e.value);
-        $("#DescriptionReasonConsidering").dxTextArea("instance").option("disabled", e.value);   
+    function SubmitButton_Click(form) {
+        alert("submit");
     }
 
     function Test_СheckBox_ValueChanged(e) {
@@ -909,6 +916,10 @@
         //$("#ClassifiedOrControlled").dxCheckBox("instance").option("disabled", e.value);
         $("#ClassifiedOrControlled").dxCheckBox("instance").option("isValid", e.value);
         $("#ClassifiedOrControlled").dxCheckBox("instance").option("visible", e.value);
+        //window.location.replace("/Arf/ArfDe"); //не сохраняется в истории сеансов
+        //window.location.href(href); //сохраняется в истории сеансов
+        //window.open(href,"_top"); // сохраняется в истории сеансов, открыть в текущей вкладке
+        //window.open(href); // сохраняется в истории сеансов, открыть в новой вкладке
     }            
 </script>
 

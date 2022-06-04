@@ -1,0 +1,29 @@
+diff a/DevExtremeAspNetCoreArf/Pages/Index.cshtml b/DevExtremeAspNetCoreArf/Pages/Index.cshtml	(rejected hunks)
+@@ -23,15 +23,23 @@
+ <a href="@Url.Page("Index", "GetFileArf")">Download</a>*@
+ 
+  <form asp-page-handler="DownloadArfJson" method="post" >    
+-    <button class="btn btn-outline-dark btn-sm">Import Data</button>
+-    <button class="btn btn-outline-primary btn-sm">Save</button>
++    <button class="btn btn-outline-dark btn-sm" value="Import">Import Data</button>
++    <button class="btn btn-outline-primary btn-sm" value="Save">Save</button>
+ </form>
+ 
+-@using(Html.BeginForm()) {
++<button id="btnPost" class="btn btn-outline-info btn-sm" value="Post">Post</button>
++
++@using(Html.BeginForm(action, controller, FormMethod.Post, 
++    new {enctype = "multipart/form-data"})) // �������� ��������� ���������� �� ����� �����-���� ������
++{
++    // ������� ���������, ������� ��������� ���������� � ������� � �������
++    //<input type="hidden" asp-for="Arf.Id">
++    //<input type="hidden" asp-for="Arf.CreateDt">
++    <input type="hidden" asp-for="Arf.GuId">
+ 
+     using(Html.DevExtreme().ValidationGroup()) {
+ 
+-        @Html.AntiForgeryToken()
++        @Html.AntiForgeryToken() // ��������� ������ https://en.wikipedia.org/wiki/Cross-site_request_forgery
+         <h2 style="text-align: center;">CUSTOMER APPLICATION REQUEST FORM</h2>
+             <center>
+                 <i><b>

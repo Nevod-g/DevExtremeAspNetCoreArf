@@ -5,8 +5,13 @@ namespace DevExtremeAspNetCoreArf.Models
     public class Arf
     {
         public int? Id { get; set; }
+        public string GuId { get; set; } = Guid.NewGuid().ToString();
+
+        /// <summary>
+        /// Имя заявки определяет менеджер, может формироваться автоматически при uploads.
+        /// </summary>
         public string? Name { get; set; }
-        public DateTime CreateDt { get; set; } = DateTime.Now;
+        public DateTime CreateDt { get; private set; } = DateTime.Now;
 
         [Required(ErrorMessage = "Language is required")]
         public int Language { get; set; } = 0;

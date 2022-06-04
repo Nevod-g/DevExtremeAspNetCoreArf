@@ -1,0 +1,89 @@
+﻿@page
+@model DevExtremeAspNetCoreArf.Pages.Examples.AjaxModel
+@{
+}
+
+//https://www.talkingdotnet.com/handle-ajax-requests-in-asp-net-core-razor-pages/
+
+@Html.AntiForgeryToken()
+
+
+
+<form>
+    <div id="dvTextItems" style="font-size:24px;">
+        <input id="txtItem1"/>
+        <input id="txtItem2"/>
+        <input id="txtItem3"/>
+    </div>
+
+    <div id="dvItems" style="font-size:24px;">
+    </div>
+
+    <div id="dvPostItems" style="font-size:24px;">
+    </div>
+
+   <button method="get" asp-page-handler="List" id="btnGet" class="btn btn-outline-primary btn-sm">Get</button>
+   <button method="post" type="submit" id="btnPost" class="btn btn-outline-primary btn-sm">Post</button>
+</form>
+
+
+
+@section Scripts {<script type="text/javascript">
+    $.ajax({
+        type: "GET",
+        url: "/Examples/Ajax?handler=List",
+        contentType: "application/json",
+        dataType: "json",
+        success: function (response) {
+            var dvItems= $("#dvItems");
+            dvItems.empty();
+            $.each(response, function (i, item) {
+                var $tr = $('<li>').append(item).appendTo(dvItems);
+            });
+        },
+        failure: function (response) {
+            alert(response);
+        }
+    });
+
+    $('#btnPost').on('click', function () {
+        var item1 = $('#txtItem1').val();
+        var item2 = $('#txtItem2').val();
+        var item3 = $('#txtItem3').val();
+        
+        console.log({
+            Item1: item1,
+            Item2: item2,
+            Item3: item3
+        });
+
+        $.ajax({
+            type: "POST",
+            url: "/Examples/Ajax?handler=Send",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("XSRF-TOKEN",
+                    $('input:hidden[name="__RequestVerificationToken"]').val());
+            },
+            data: JSON.stringify({
+                Item1: item1,
+                Item2: item2,
+                Item3: item3
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                var dvItems = $("#dvPostItems");
+                dvItems.empty();
+                $.each(response, function (i, item) {
+                    var $tr = $('<li>').append(item).appendTo(dvTextItems);
+                });
+            },
+            failure: function (response) {
+                alert(response);
+            }
+        });
+    })
+
+</script>}
+
+

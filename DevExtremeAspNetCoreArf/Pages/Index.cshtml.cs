@@ -1,6 +1,8 @@
 using DevExtremeAspNetCoreArf.Services;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System;
 using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
@@ -13,19 +15,21 @@ namespace DevExtremeAspNetCoreArf.Pages
         public string ArfJsonString => JsonSerializer.Serialize(Arf);
 
         private readonly IArfRepository arfRepository;
+        private readonly IWebHostEnvironment webHostEnviroment;
 
-        public IndexModel(IArfRepository arfRepository)
+        public IndexModel(IArfRepository arfRepository, IWebHostEnvironment webHostEnviroment)
         {
             this.arfRepository = arfRepository;
+            this.webHostEnviroment = webHostEnviroment;
             //Arf = arfRepository.GetArf(2);
         }
 
-        public IActionResult OnGet() // Получение от сервера
+        public IActionResult OnGet() // Получение от сервера, загрузка страницы
         {
             return Page();
         }
 
-        public IActionResult OnPost(Models.Arf arf) // Отправка на сервер
+        public IActionResult OnPost(Models.Arf arf) // Отправка на сервер, отправка страницы
         {
             this.Arf = arfRepository.Update(arf);
 
@@ -75,6 +79,28 @@ namespace DevExtremeAspNetCoreArf.Pages
 
             return File(fileContent, fileType, fileName);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fileData"></param>
+        /// <param name="dirName">Destination file name.</param>
+        /// <param name="fileName"></param>
+        private void UploadFile(byte[] fileData, string dirName, string fileName)
+        {
+            string filePath = Path.Combine(webHostEnviroment.WebRootPath, dirName, fileName);
+            using (var fs = new FileStream(filePath, FileMode.Create))
+            {
+                fs.Write(fileData, 0, fileData.Length);
+            }
+        } 
+        
+        private void DeleteFile(string dirName, string fileName)
+        {
+            string filePath = Path.Combine(webHostEnviroment.WebRootPath, dirName, fileName);
+            System.IO.File.Delete(filePath);
+        }
+
 
         // runs on the GET request
         //public IActionResult OnGetGridData(DataSourceLoadOptions loadOptions)

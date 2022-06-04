@@ -23,15 +23,23 @@
 <a href="@Url.Page("Index", "GetFileArf")">Download</a>*@
 
  <form asp-page-handler="DownloadArfJson" method="post" >    
-    <button class="btn btn-outline-dark btn-sm">Import Data</button>
-    <button class="btn btn-outline-primary btn-sm">Save</button>
+    <button class="btn btn-outline-dark btn-sm" value="Import">Import Data</button>
+    <button class="btn btn-outline-primary btn-sm" value="Save">Save</button>
 </form>
 
-@using(Html.BeginForm()) {
+<button id="btnPost" class="btn btn-outline-info btn-sm" value="Post">Post</button>
 
+@using(Html.BeginForm(null, null, FormMethod.Post, 
+    new {enctype = "multipart/form-data"})) // Аргумент позволяет передавать из формы какие-либо данные
+{
     using(Html.DevExtreme().ValidationGroup()) {
 
-        @Html.AntiForgeryToken()
+        @Html.AntiForgeryToken() // Отключить защиту https://en.wikipedia.org/wiki/Cross-site_request_forgery
+        // Скрытые параметры, которые требуется передавать с сервера и обратно
+        //<input type="hidden" asp-for="Arf.Id">
+        //<input type="hidden" asp-for="Arf.CreateDt">
+        <input type="hidden" asp-for="Arf.GuId">
+
         <h2 style="text-align: center;">CUSTOMER APPLICATION REQUEST FORM</h2>
             <center>
                 <i><b>
@@ -50,7 +58,7 @@
                         .Text("Import Data")
                         .Icon("import")
                         .Type(ButtonType.Normal)
-                        .UseSubmitBehavior(true)
+                        .UseSubmitBehavior(false)
                         .OnClick("ImportButton_Click")
                     )
                     @(Html.DevExtreme().Button()
@@ -787,7 +795,7 @@
                         .Text("Import Data")
                         .Icon("import")
                         .Type(ButtonType.Normal)
-                        .UseSubmitBehavior(true)
+                        .UseSubmitBehavior(false)
                         .OnClick("ImportButton_Click")
                     )
                     @(Html.DevExtreme().Button()
@@ -815,7 +823,7 @@
     }
 }
 
-<script type="text/javascript" language="javascript">
+@section Scripts {<script type="text/javascript">
     var arf = @Html.Raw(Json.Serialize(Model.Arf));
 
     function Language_ValueChanged(e) {
@@ -859,6 +867,16 @@
         alert("submit");
     }
 
+    $(document).ready( // Дождаться полной загрузки страницы
+        // Хендлер события OnChange, поменять значение target.html
+        //function () {
+        //    $('.class-name-event').on("change", function () {
+        //        var fileName = $(this).val().split("\\").pop();
+        //        $(this).next('.class-name-target').html(fileName);
+        //    });
+        //});
+        )
+
     function Test_СheckBox_ValueChanged(e) {
         //DevExpress.ui.notify({ message: 'Value: ' + e.value, width: 320 }, "success", 1000);
         var buttonText = e.component.option("text");
@@ -884,7 +902,7 @@
         //window.open(href,"_top"); // сохраняется в истории сеансов, открыть в текущей вкладке
         //window.open(href); // сохраняется в истории сеансов, открыть в новой вкладке
     }            
-</script>
+</script>}
 
 <h6>Todo:</h6>
 Настроить валидацию (в т.ч. по флажку).

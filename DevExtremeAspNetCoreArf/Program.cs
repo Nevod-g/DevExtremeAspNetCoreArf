@@ -7,6 +7,8 @@ builder.Services
     .AddRazorPages()
     .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
 
+builder.Services.AddAntiforgery(options => options.HeaderName = "XSRF-TOKEN"); // Cлужба защиты от подделки для поиска X-CSRF-TOKEN заголовка
+
 builder.Services.AddSingleton<IArfRepository, MockArfRepository>(); // Подружить интерфейс бибилиотеки с проектом
 
 builder.Services.Configure<RouteOptions>( // Конфигурировать Url

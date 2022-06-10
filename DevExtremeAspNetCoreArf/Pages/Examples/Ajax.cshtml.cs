@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
@@ -7,18 +8,21 @@ namespace DevExtremeAspNetCoreArf.Pages.Examples
 {
     public class AjaxModel : PageModel
     {
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            return Page();
         }
 
-        public JsonResult OnGetList()
-        {
-            List<string> lstString = new List<string>
+        private List<string> lstString = new List<string>
             {
-                "Val 1",
+                "Val 1-",
                 "Val 2",
                 "Val 3"
             };
+
+        public JsonResult OnGetList()
+        {
+            
             return new JsonResult(lstString);
         }
 
@@ -28,6 +32,12 @@ namespace DevExtremeAspNetCoreArf.Pages.Examples
             string sPostValue2 = "";
             string sPostValue3 = "";
             {
+                var syncIOFeature = HttpContext.Features.Get<IHttpBodyControlFeature>();
+                if (syncIOFeature != null)
+                {
+                    syncIOFeature.AllowSynchronousIO = true;
+                }
+
                 MemoryStream stream = new MemoryStream();
                 Request.Body.CopyTo(stream);
                 stream.Position = 0;
@@ -46,7 +56,7 @@ namespace DevExtremeAspNetCoreArf.Pages.Examples
                     }
                 }
             }
-            List<string> lstString = new List<string>
+            lstString = new List<string>
             {
                 sPostValue1,
                 sPostValue2,

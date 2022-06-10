@@ -2,7 +2,7 @@
 
 namespace DevExtremeAspNetCoreArf.Services
 {
-    public class MockArfRepository : IArfRepository
+    public class MockArfRepository : IRepository<Arf>
     {
         private readonly List<Arf> arfList;
 
@@ -22,9 +22,9 @@ namespace DevExtremeAspNetCoreArf.Services
             return arfList;
         }
 
-        public Arf Get(int id)
-        {
-            return arfList.FirstOrDefault(a => a.Id == id);
+        public Arf? Get(int? id)
+        {            
+            return arfList?.FirstOrDefault(a => a.Id == id);
         }
 
         public Arf Update(Arf arf)

@@ -14,10 +14,10 @@ namespace DevExtremeAspNetCoreArf.Pages
         public Models.Arf Arf = new(); //Заявка клиента
         public string ArfJsonString => JsonSerializer.Serialize(Arf);
 
-        private readonly IArfRepository arfRepository;
+        private readonly IRepository<Models.Arf> arfRepository;
         private readonly IWebHostEnvironment webHostEnviroment;
 
-        public IndexModel(IArfRepository arfRepository, IWebHostEnvironment webHostEnviroment)
+        public IndexModel(IRepository<Models.Arf> arfRepository, IWebHostEnvironment webHostEnviroment)
         {
             this.arfRepository = arfRepository;
             this.webHostEnviroment = webHostEnviroment;
